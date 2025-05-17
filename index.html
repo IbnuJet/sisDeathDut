@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login & Sign Up</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container" id="container">
+    
+    <!-- Login Form -->
+    <div class="form-card login-form">
+      <h2>Login</h2>
+      <p>Welcome Back! Please Login!</p>
+      <input type="email" placeholder="johndoe@gmail.com" />
+      <input type="password" placeholder="password" />
+      <button class="login-btn">Login</button>
+    </div>
+
+    <!-- Switch Panel -->
+    <div class="switch-panel" id="switchPanel">
+      <h2 id="switchTitle">Don’t have account yet?</h2>
+      <p id="switchText">Sign up right here if you don’t have account</p>
+      <button class="switch-btn" id="switchBtn" onclick="toggleForm()">Sign Up</button>
+    </div>
+
+    <!-- Sign Up Form -->
+    <div class="form-card signup-form" id="signupForm">
+      <h2>Sign Up</h2>
+      <p>Welcome! Please Sign Up!</p>
+      <input type="text" placeholder="John Doe" />
+      <input type="email" placeholder="johndoe@gmail.com" />
+      <input type="text" placeholder="62812345678" />
+      <div class="gender">
+        <button>♂</button>
+        <button>♀</button>
+      </div>
+      <button class="login-btn">Sign Up</button>
+    </div>
+
+  </div>
+
+  <script>
+    function toggleForm() {
+      const container = document.getElementById('container');
+      const switchTitle = document.getElementById('switchTitle');
+      const switchText = document.getElementById('switchText');
+      const switchBtn = document.getElementById('switchBtn');
+
+      container.classList.toggle('move-left');
+
+      if (container.classList.contains('move-left')) {
+        switchTitle.innerText = 'Already have account?';
+        switchText.innerText = 'Sign in right here if you have account';
+        switchBtn.innerText = 'Sign In';
+      } else {
+        switchTitle.innerText = 'Don’t have account yet?';
+        switchText.innerText = 'Sign up right here if you don’t have account';
+        switchBtn.innerText = 'Sign Up';
+      }
+    }
+  </script>
+</body>
+</html>
