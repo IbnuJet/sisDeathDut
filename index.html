@@ -32,11 +32,13 @@
       <p>Welcome! Please Sign Up!</p>
       <input type="text" placeholder="John Doe" />
       <input type="email" placeholder="johndoe@gmail.com" />
+      <input type="password" placeholder="password" />
       <input type="text" placeholder="62812345678" />
       <div class="gender">
-        <button>♂</button>
-        <button>♀</button>
+        <button type="button" class="gender-btn" onclick="selectGender(this)" data-gender="male">♂️</button>
+        <button type="button" class="gender-btn" onclick="selectGender(this)" data-gender="female">♀️</button>
       </div>
+      <input type="hidden" id="genderInput" name="gender" />
       <button class="login-btn">Sign Up</button>
     </div>
 
@@ -60,6 +62,14 @@
         switchText.innerText = 'Sign up right here if you don’t have account';
         switchBtn.innerText = 'Sign Up';
       }
+    }
+
+    function selectGender(button) {
+      const buttons = document.querySelectorAll('.gender-btn');
+      buttons.forEach(btn => btn.classList.remove('selected'));
+      button.classList.add('selected');
+      const gender = button.getAttribute('data-gender');
+      document.getElementById('genderInput').value = gender;
     }
   </script>
 </body>

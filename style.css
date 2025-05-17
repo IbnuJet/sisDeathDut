@@ -113,8 +113,13 @@ button {
   margin-bottom: 15px;
 }
 
-.gender button {
+.gender-btn {
   flex: 1;
   background: #5e4b8b;
   color: white;
+}
+
+.gender-btn.selected {
+  background-color: #a78bfa;
+  border: 2px solid white;
 }
