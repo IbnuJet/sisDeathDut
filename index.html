@@ -16,7 +16,7 @@
       <p>Welcome Back! Please Login!</p>
       <input type="email" placeholder="johndoe@gmail.com" />
       <input type="password" placeholder="password" />
-      <button class="login-btn">Login</button>
+      <button class="login-btn" onclick="login()">Login</button>
       <a href="#" onclick="showForgotPassword()" class="forgot-password-link">Forgot Password?</a>
     </div>
 
@@ -84,6 +84,9 @@
       container.classList.remove('show-forgot');
     }
 
+    function login() {
+      window.location.href = "dashboard.html";
+    }
 
   </script>
 </body>
