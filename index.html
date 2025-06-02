@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Login & Sign Up</title>
+  <title>Login UI</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
   <div class="container" id="container">
-    
+
     <!-- Login Form -->
     <div class="form-card login-form">
       <h2>Login</h2>
@@ -17,6 +17,32 @@
       <input type="email" placeholder="johndoe@gmail.com" />
       <input type="password" placeholder="password" />
       <button class="login-btn">Login</button>
+      <a href="#" onclick="showForgotPassword()" class="forgot-password-link">Forgot Password?</a>
+    </div>
+
+    <!-- Forgot Password Form -->
+    <div class="form-card forgot-form" id="forgotForm">
+      <h2>Forgot Password</h2>
+      <p>Please enter your email!</p>
+      <form action="send_code.php" method="POST">
+        <input type="email" name="email" placeholder="johndoe@gmail.com" required />
+        <button type="submit" class="login-btn" style="width: 100%;">Continue</button> 
+      </form>
+    </div>
+
+
+    <!-- Sign Up Form -->
+    <div class="form-card signup-form">
+      <h2>Sign Up</h2>
+      <p>Welcome! Please Sign Up!</p>
+      <input type="text" placeholder="John Doe" />
+      <input type="email" placeholder="johndoe@gmail.com" />
+      <input type="text" placeholder="62812345678" />
+      <div class="gender">
+        <button>♂</button>
+        <button>♀</button>
+      </div>
+      <button class="login-btn">Sign Up</button>
     </div>
 
     <!-- Switch Panel -->
@@ -25,23 +51,6 @@
       <p id="switchText">Sign up right here if you don’t have account</p>
       <button class="switch-btn" id="switchBtn" onclick="toggleForm()">Sign Up</button>
     </div>
-
-    <!-- Sign Up Form -->
-    <div class="form-card signup-form" id="signupForm">
-      <h2>Sign Up</h2>
-      <p>Welcome! Please Sign Up!</p>
-      <input type="text" placeholder="John Doe" />
-      <input type="email" placeholder="johndoe@gmail.com" />
-      <input type="password" placeholder="password" />
-      <input type="text" placeholder="62812345678" />
-      <div class="gender">
-        <button type="button" class="gender-btn" onclick="selectGender(this)" data-gender="male">♂️</button>
-        <button type="button" class="gender-btn" onclick="selectGender(this)" data-gender="female">♀️</button>
-      </div>
-      <input type="hidden" id="genderInput" name="gender" />
-      <button class="login-btn">Sign Up</button>
-    </div>
-
   </div>
 
   <script>
@@ -52,6 +61,7 @@
       const switchBtn = document.getElementById('switchBtn');
 
       container.classList.toggle('move-left');
+      container.classList.remove('show-forgot');
 
       if (container.classList.contains('move-left')) {
         switchTitle.innerText = 'Already have account?';
@@ -64,13 +74,17 @@
       }
     }
 
-    function selectGender(button) {
-      const buttons = document.querySelectorAll('.gender-btn');
-      buttons.forEach(btn => btn.classList.remove('selected'));
-      button.classList.add('selected');
-      const gender = button.getAttribute('data-gender');
-      document.getElementById('genderInput').value = gender;
+    function showForgotPassword() {
+      const container = document.getElementById('container');
+      container.classList.add('show-forgot');
     }
+
+    function backToLogin() {
+      const container = document.getElementById('container');
+      container.classList.remove('show-forgot');
+    }
+
+
   </script>
 </body>
 </html>
