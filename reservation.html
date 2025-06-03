@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reservation Page</title>
+  <link rel="stylesheet" href="reservation.css"/>
+  <link href="https://fonts.googleapis.com/css2?family=Varela+Round&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="background-overlay">
+    <header>
+      <div class="logo">BookEat.com</div>
+      <nav>
+        <a href="dashboard.html">Dashboard</a>
+        <a href="restaurant.html">Restaurant</a>
+        <a href="#">Review</a>
+        <a href="#" class="active">Reservation</a>
+        <div class="menu-icon">☰</div>
+      </nav>
+    </header>
+
+    <section class="filter-bar">
+      <div class="filter-group">
+        <div class="filter">
+          <span class="icon">📅</span>
+          <input type="date" value="2025-05-20">
+        </div>
+        <div class="filter">
+          <span class="icon">🕒</span>
+          <input type="time" value="18:30">
+        </div>
+        <div class="filter">
+          <span class="icon">👤</span>
+          <select>
+            <option>1 Person</option>
+            <option selected>2 People</option>
+            <option>3 People</option>
+            <option>4 People</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="search-group">
+        <input type="text" placeholder="Search Restaurant, Location, or Cuisine">
+        <button>Find</button>
+      </div>
+    </section>
+
+    <section class="restaurant-list">
+      <div class="restaurant-card">
+        <div class="pic">PIC</div>
+        <div class="details">
+          <h3>Restaurant’s Name</h3>
+          <p>⭐⭐⭐⭐★ <span>Restaurant’s Category</span></p>
+          <p class="price">💵💵💵💵 Restaurant’s Price Category</p>
+          <p class="hour">🕒 Restaurant’s Operational Hour</p>
+        </div>
+        <button class="add-btn">+</button>
+      </div>
+
+      <div class="restaurant-card">
+        <div class="pic">PIC</div>
+        <div class="details">
+          <h3>Restaurant’s Name</h3>
+          <p>⭐⭐⭐⭐★ <span>Restaurant’s Category</span></p>
+          <p class="price">💵💵💵💵 Restaurant’s Price Category</p>
+          <p class="hour">🕒 Restaurant’s Operational Hour</p>
+        </div>
+        <button class="add-btn">+</button>
+      </div>
+    </section>
+  </div>
+</body>
+</html>
