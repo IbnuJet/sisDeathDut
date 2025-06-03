@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Signature Identity</title>
+  <link rel="stylesheet" href="profile.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="back-btn">&#8592;</div>
+      <h1>Signature Identity</h1>
+      <div class="menu-icon">&#9776;</div>
+    </header>
+
+    <main>
+      <div class="profile-card">
+        <div class="card-header">
+          <div class="profile-pic">
+            <img src="https://via.placeholder.com/50" alt="User" />
+            <div class="edit-icon">&#9998;</div>
+          </div>
+          <div class="user-info">
+            <p class="user-name">Name</p>
+            <p class="user-email">username@email.com</p>
+          </div>
+          <button class="close-btn">&times;</button>
+        </div>
+
+        <div class="card-content">
+          <div class="info-row">
+            <label>Name</label>
+            <span class="info-bold">YourName</span>
+          </div>
+          <div class="info-row">
+            <label>Email Account</label>
+            <span class="info-bold">YourName@email.com</span>
+          </div>
+          <div class="info-row">
+            <label>Password</label>
+            <span class="info-bold">**************</span>
+          </div>
+          <div class="info-row">
+            <label>Phone Number</label>
+            <span class="info-bold">08xx xxxx xxxx</span>
+          </div>
+          <div class="info-row">
+            <label>Gender</label>
+            <span class="info-bold">♂ / ♀</span>
+          </div>
+        </div>
+
+        <div class="edit-button">
+          <button>Edit</button>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Sidebar -->
+<div id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <div class="profile-icon">PIC</div>
+    <div>
+      <p class="sidebar-name">Name</p>
+      <p class="sidebar-email">username@email.com</p>
+    </div>
+  </div>
+  <div class="sidebar-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="#">My Reservation</a>
+    <a href="#">My Review</a>
+  </div>
+  <button class="logout-btn" onclick="logout()">LOG OUT</button>
+</div>
+
+<!-- Overlay -->
+<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+<!-- JavaScript -->
+<script>
+  function toggleSidebar() {
+    document.getElementById("sidebar").classList.toggle("active");
+    document.getElementById("overlay").classList.toggle("active");
+  }
+
+  function logout() {
+    alert("You have been logged out.");
+    window.location.href = "signIn.html"; // Ganti sesuai nama file login kamu
+  }
+
+  // Tambahkan event ke ikon hamburger
+  document.querySelector('.menu-icon').addEventListener('click', toggleSidebar);
+</script>
+
+</body>
+</html>
