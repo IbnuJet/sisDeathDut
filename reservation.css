@@ -1,0 +1,221 @@
+body, html {
+  margin: 0;
+  padding: 0;
+  font-family: 'Varela Round', sans-serif;
+  background-color: #333;
+  height: 100%;
+  position: relative;
+}
+
+.background-overlay {
+  background-image: url('assets/reservation_bg.png');
+  background-size: cover;
+  background-position: center;
+  min-height: 100vh;
+  padding: 0 2rem;
+  color: white;
+  position: relative;
+}
+
+/* Header */
+header {
+  position: relative;
+  padding: 1rem 0;
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Pusatkan konten header */
+  height: 60px; /* Bisa disesuaikan */
+}
+
+.logo {
+  position: absolute;
+  left: 2rem;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+nav {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  gap: 1.5rem; /* Lebih longgar */
+  align-items: center;
+  font-size: 1.25rem; /* Perbesar ukuran font */
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.2);
+  padding: 0.75rem 1.5rem; /* Padding diperbesar */
+  border-radius: 20px;
+  transition: background 0.3s;
+  font-weight: 600;
+}
+
+nav a.active, nav a:hover {
+  background-color: rgba(255, 255, 255, 0.4);
+}
+
+/* Hamburger menu di pojok kanan atas window */
+.menu-icon {
+  position: fixed; /* supaya selalu di pojok kanan atas */
+  right: 1rem;
+  top: 1rem;
+  cursor: pointer;
+  font-size: 2rem; /* Perbesar ikon hamburger */
+  color: white;
+  z-index: 9999; /* Pastikan di atas semua */
+}
+
+/* Filter Bar */
+.filter-bar {
+  border-radius: 12px;
+  margin: 1rem 0;
+  padding: 3rem 2rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  background: transparent;
+}
+
+.filter-group {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Style umum filter sama semua */
+.filter {
+  display: flex;
+  align-items: center;
+  background: #6c757d;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  color: white;
+}
+
+/* Icon dalam filter */
+.filter .icon {
+  margin-right: 0.5rem;
+}
+
+/* Style untuk select dan input semua di dalam filter */
+.filter select,
+.filter input {
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 1rem;
+  outline: none;
+  width: 100%;
+}
+
+/* Khusus input type date dan time */
+.filter input[type="date"],
+.filter input[type="time"] {
+  /* Hapus background putih default browser */
+  background: transparent;
+  color: white;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+  padding: 0;
+  /* Tambahkan border bottom atau lainnya jika mau */
+  border-bottom: 1px solid #ccc;
+  border-radius: 0;
+  width: 120px; /* sesuaikan lebar */
+  cursor: pointer;
+}
+
+/* Search group */
+.search-group {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.search-group input {
+  width: 31%;
+  padding: 0.75rem;
+  border-radius: 12px;
+  border: none;
+  outline: none;
+  font-size: 1rem;
+}
+
+.search-group button {
+  background-color: #00e6ff;
+  color: black;
+  border: none;
+  padding: 0.75rem 1.5rem;
+  font-weight: bold;
+  border-radius: 12px;
+  cursor: pointer;
+}
+
+/* Restaurant List */
+.restaurant-list {
+  max-width: 900px;
+  margin: 2rem auto;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.restaurant-card {
+  background-color: rgba(128, 128, 128, 0.7);
+  padding: 1rem;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.restaurant-card .pic {
+  background-color: white;
+  color: black;
+  font-weight: bold;
+  font-size: 1.5rem;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.restaurant-card .details {
+  flex-grow: 1;
+}
+
+.restaurant-card h3 {
+  margin: 0;
+  color: white;
+}
+
+.restaurant-card p {
+  margin: 0.2rem 0;
+  color: #f1f1f1;
+}
+
+.price {
+  color: #00ff88;
+}
+
+.hour {
+  color: #dddddd;
+}
+
+.add-btn {
+  background-color: #ccc;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.5rem;
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
