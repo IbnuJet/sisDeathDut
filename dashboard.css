@@ -54,9 +54,16 @@ html, body {
   color: white;
   background-color: rgba(255,255,255,0.3);
   padding: 8px 20px;
-  border-radius: 25px;
+  border-radius: 25px;  
   transition: background-color 0.3s ease;
 }
+
+.nav-center ul li a.active {
+  background-color: rgba(255, 255, 255, 0.5);  /* warna saat aktif */
+  color: white; /* warna teks saat aktif */
+  font-weight: 700;
+}
+
 
 .nav-center ul li a:hover {
   background-color: rgba(255,255,255,0.5);
