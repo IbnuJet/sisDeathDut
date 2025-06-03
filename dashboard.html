@@ -5,39 +5,136 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>BookEat Dashboard</title>
   <link rel="stylesheet" href="dashboard.css" />
+  <link rel="stylesheet" href="sidebar.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    .sidebar {
+        position: fixed;
+        top: 0;
+        right: -300px;
+        height: 45%;
+        width: 290px;
+        background: #f1f1f1;
+        box-shadow: -2px 0 5px rgba(0,0,0,0.3);
+        transition: right 0.3s ease;
+        z-index: 1001;
+        border-top-left-radius: 20px;
+        border-bottom-left-radius: 20px;
+        display: flex;
+        flex-direction: column;
+        padding: 20px;
+      }
+
+      .sidebar.active {
+        right: 0;
+      }
+
+      .sidebar-header {
+        display: flex;
+        align-items: center;
+        gap: 15px;
+        margin-bottom: 30px;
+      }
+
+      .profile-icon {
+        width: 60px;
+        height: 60px;
+        background: #2d3345;
+        border-radius: 50%;
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .sidebar-name {
+        font-weight: bold;
+        font-size: 1.2rem;
+        color: #2d3345;
+      }
+
+      .sidebar-email {
+        color: #333;
+        font-size: 0.9rem;
+      }
+
+      .sidebar-links {
+        flex-grow: 1;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      .sidebar-links a {
+        text-decoration: none;
+        color: #2d3345;
+        font-size: 1.2rem;
+        padding: 10px 0;
+        border-bottom: 1px solid #ccc;
+      }
+
+      .logout-btn {
+        background: red;
+        color: white;
+        border: none;
+        padding: 12px;
+        font-weight: bold;
+        font-size: 1rem;
+        border-radius: 10px;
+        cursor: pointer;
+        margin-top: auto;
+      }
+
+      /* Overlay to dim background */
+      .overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0,0,0,0.3);
+        opacity: 0;
+        visibility: hidden;
+        z-index: 1000;
+        transition: opacity 0.3s ease;
+      }
+
+      .overlay.active {
+        opacity: 1;
+        visibility: visible;
+      }
+  </style>
 </head>
 <body>
 
-  <!-- Navbar Teal Penuh -->
+  <!-- Navbar -->
   <header class="navbar">
     <div class="brand">BookEat.com</div>
 
     <nav class="nav-center">
-  <ul>
-    <li><a href="dashboard.html" class="active">Dashboard</a></li>
-    <li><a href="restaurant.html">Restaurant</a></li>
-    <li><a href="review.html">Review</a></li>
-    <li><a href="reservation.html">Reservation</a></li>
-  </ul>
-</nav>
+      <ul>
+        <li><a href="dashboard.html" class="active">Dashboard</a></li>
+        <li><a href="restaurant.html">Restaurant</a></li>
+        <li><a href="review.html">Review</a></li>
+        <li><a href="reservation.html">Reservation</a></li>
+      </ul>
+    </nav>
 
-
-    <div class="hamburger">
+    <div class="hamburger" id="hamburger">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
   </header>
 
-  <!-- Hero Section mengambil seluruh sisa viewport -->
+  <!-- Hero Section -->
   <section class="hero">
     <div class="hero-content">
-      <!-- Teks BookEat di tengah -->
       <h1>BookEat</h1>
       <p>Makes your life easy and simple!</p>
 
-      <!-- Tiga fitur di bawah “BookEat” -->
       <div class="feature-container">
         <div class="feature">
           <h3>Search from many options</h3>
@@ -55,5 +152,45 @@
     </div>
   </section>
 
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div class="profile-icon">PIC</div>
+      <div>
+        <p class="sidebar-name">Name</p>
+        <p class="sidebar-email">username@email.com</p>
+      </div>
+    </div>
+    <div class="sidebar-links">
+      <a href="profile.html">Profile</a>
+      <a href="#">My Reservation</a>
+      <a href="#">My Review</a>
+    </div>
+    <button class="logout-btn" onclick="logout()">LOG OUT</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- JavaScript -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    function logout() {
+      alert("Logged out!");
+    }
+  </script>
 </body>
 </html>

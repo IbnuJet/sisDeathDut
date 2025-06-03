@@ -1,73 +1,93 @@
-body, html {
+* {
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
   margin: 0;
   padding: 0;
-  font-family: 'Varela Round', sans-serif;
-  background-color: #333;
-  height: 100%;
-  position: relative;
 }
 
+html, body {
+  height: 100vh;
+  overflow: hidden;
+  background-color: #2d3244;
+  color: white;
+}
+
+/* ───────── Navbar Teal Penuh (dari dashboard) ───────── */
+.navbar {
+  background-color: #63a59c;
+  width: 100%;
+  height: 80px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  z-index: 100;
+}
+
+.brand {
+  margin-left: 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-center ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav-center ul li a {
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 8px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-center ul li a:hover,
+.nav-center ul li a.active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.hamburger {
+  margin-right: 16px;
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* ───────── Konten utama ───────── */
 .background-overlay {
-  background-image: url('assets/reservation_bg.png');
+  background-image: url('assets/reservation_bgr.png');
   background-size: cover;
   background-position: center;
   min-height: 100vh;
   padding: 0 2rem;
   color: white;
   position: relative;
-}
-
-/* Header */
-header {
-  position: relative;
-  padding: 1rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: center; /* Pusatkan konten header */
-  height: 60px; /* Bisa disesuaikan */
-}
-
-.logo {
-  position: absolute;
-  left: 2rem;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-nav {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  transform: translate(-50%, -50%);
-  display: flex;
-  gap: 1.5rem; /* Lebih longgar */
-  align-items: center;
-  font-size: 1.25rem; /* Perbesar ukuran font */
-}
-
-nav a {
-  text-decoration: none;
-  color: white;
-  background-color: rgba(255, 255, 255, 0.2);
-  padding: 0.75rem 1.5rem; /* Padding diperbesar */
-  border-radius: 20px;
-  transition: background 0.3s;
-  font-weight: 600;
-}
-
-nav a.active, nav a:hover {
-  background-color: rgba(255, 255, 255, 0.4);
-}
-
-/* Hamburger menu di pojok kanan atas window */
-.menu-icon {
-  position: fixed; /* supaya selalu di pojok kanan atas */
-  right: 1rem;
-  top: 1rem;
-  cursor: pointer;
-  font-size: 2rem; /* Perbesar ikon hamburger */
-  color: white;
-  z-index: 9999; /* Pastikan di atas semua */
+  padding-top: 100px; /* dorong konten agar tidak tertimpa navbar */
 }
 
 /* Filter Bar */
@@ -88,7 +108,6 @@ nav a.active, nav a:hover {
   flex-wrap: wrap;
 }
 
-/* Style umum filter sama semua */
 .filter {
   display: flex;
   align-items: center;
@@ -98,12 +117,10 @@ nav a.active, nav a:hover {
   color: white;
 }
 
-/* Icon dalam filter */
 .filter .icon {
   margin-right: 0.5rem;
 }
 
-/* Style untuk select dan input semua di dalam filter */
 .filter select,
 .filter input {
   background: transparent;
@@ -114,24 +131,20 @@ nav a.active, nav a:hover {
   width: 100%;
 }
 
-/* Khusus input type date dan time */
 .filter input[type="date"],
 .filter input[type="time"] {
-  /* Hapus background putih default browser */
   background: transparent;
   color: white;
   border: none;
   outline: none;
   font-size: 1rem;
   padding: 0;
-  /* Tambahkan border bottom atau lainnya jika mau */
   border-bottom: 1px solid #ccc;
   border-radius: 0;
-  width: 120px; /* sesuaikan lebar */
+  width: 120px;
   cursor: pointer;
 }
 
-/* Search group */
 .search-group {
   display: flex;
   justify-content: center;
@@ -157,7 +170,6 @@ nav a.active, nav a:hover {
   cursor: pointer;
 }
 
-/* Restaurant List */
 .restaurant-list {
   max-width: 900px;
   margin: 2rem auto;
@@ -218,4 +230,14 @@ nav a.active, nav a:hover {
   width: 36px;
   height: 36px;
   cursor: pointer;
+}
+
+.restaurant-card {
+  display: grid;
+  grid-template-columns: 80px 1fr auto; /* PIC - DETAILS - BUTTON */
+  align-items: center;
+  padding: 1rem;
+  border-radius: 12px;
+  background-color: rgba(128, 128, 128, 0.7);
+  gap: 1rem;
 }
