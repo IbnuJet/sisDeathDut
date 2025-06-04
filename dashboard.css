@@ -228,6 +228,7 @@ html, body {
   display: flex;
   flex-direction: column;
   padding: 20px;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
 }
 
 .sidebar.active {
@@ -284,12 +285,15 @@ html, body {
   background: red;
   color: white;
   border: none;
-  padding: 12px;
+  width: 50%;
+  padding: 10px;
   font-weight: bold;
   font-size: 1rem;
   border-radius: 10px;
   cursor: pointer;
-  margin-top: auto;
+  margin-top: 10px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Overlay to dim background */
