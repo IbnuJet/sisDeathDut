@@ -4,10 +4,10 @@
   margin: 0;
   padding: 0;
 }
+
 html, body {
-  min-height: 100vh;
-  height: auto;
-  overflow-y: auto;
+  height: 100vh;
+  overflow: hidden;
   background-color: #2d3244;
   color: white;
 }
@@ -17,7 +17,7 @@ html, body {
   background-color: #63a59c;
   width: 100%;
   height: 80px;
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
   display: flex;
@@ -84,11 +84,11 @@ html, body {
   background-size: cover;
   background-position: center;
   min-height: 100vh;
-  padding: 100px 2rem 2rem;
+  padding: 0 2rem;
   color: white;
   position: relative;
+  padding-top: 100px; /* dorong konten agar tidak tertimpa navbar */
 }
-
 
 /* Filter Bar */
 .filter-bar {

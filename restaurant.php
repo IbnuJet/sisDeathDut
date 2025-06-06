@@ -1,38 +1,32 @@
 <?php
+header('Content-Type: application/json');
+
 // Koneksi ke database
 $servername = "localhost";
 $username = "root";
-$password = ""; // default XAMPP kosong
+$password = "";
 $dbname = "reserv_view_resto";
 
-// Membuat koneksi
 $conn = new mysqli($servername, $username, $password, $dbname);
-
-// Cek koneksi
 if ($conn->connect_error) {
-    die("Koneksi gagal: " . $conn->connect_error);
+    http_response_code(500);
+    echo json_encode(["error" => "Koneksi gagal"]);
+    exit;
 }
 
-// Query untuk ambil data restoran
 $sql = "SELECT id_restoran, nama_restoran, lokasi, kategori, jam_operasional FROM restoran";
 $result = $conn->query($sql);
 
+$data = [];
+$no = 1;
 if ($result->num_rows > 0) {
-    echo "<h2>Daftar Restoran</h2>";
-    echo "<table border='1' cellpadding='10'>";
-    echo "<tr><th>ID</th><th>Nama Restoran</th><th>Lokasi</th><th>Kategori</th><th>Jam Operasional</th></tr>";
-    while($row = $result->fetch_assoc()) {
-        echo "<tr>";
-        echo "<td>" . $row["id_restoran"] . "</td>";
-        echo "<td>" . $row["nama_restoran"] . "</td>";
-        echo "<td>" . $row["lokasi"] . "</td>";
-        echo "<td>" . $row["kategori"] . "</td>";
-        echo "<td>" . $row["jam_operasional"] . "</td>";
-        echo "</tr>";
+    while ($row = $result->fetch_assoc()) {
+        $row["no"] = $no++;
+        $data[] = $row;
     }
-    echo "</table>";
+    echo json_encode($data);
 } else {
-    echo "Data restoran tidak ditemukan.";
+    echo json_encode([]);
 }
 
 $conn->close();

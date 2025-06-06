@@ -92,30 +92,6 @@
 
   // Tambahkan event ke ikon hamburger
   document.querySelector('.menu-icon').addEventListener('click', toggleSidebar);
-
-   fetch('profile.php')
-    .then(res => res.json())
-    .then(data => {
-      if (data.error) {
-        console.error(data.error);
-        return;
-      }
-
-      // Header & Sidebar
-      document.querySelector('.user-name').textContent = data.nama_customer;
-      document.querySelector('.user-email').textContent = data.email;
-      document.querySelector('.sidebar-name').textContent = data.nama_customer;
-      document.querySelector('.sidebar-email').textContent = data.email;
-
-      // Card Content
-      const infoBold = document.querySelectorAll('.info-bold');
-      infoBold[0].textContent = data.nama_customer;
-      infoBold[1].textContent = data.email;
-      infoBold[2].textContent = "**************"; // Jangan tampilkan password asli
-      infoBold[3].textContent = data.no_telp || "-";
-      infoBold[4].textContent = data.gender === "female" ? "♂" : data.gender === "male" ? "♀" : "-";
-    })
-    .catch(err => console.error('Gagal ambil data user:', err));
 </script>
 
 </body>

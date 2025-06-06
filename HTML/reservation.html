@@ -78,31 +78,5 @@
       </div>
     </section>
   </div>
-  <script>
-fetch('reservation.php')
-  .then(res => res.json())
-  .then(data => {
-    const list = document.querySelector('.restaurant-list');
-    list.innerHTML = ''; // Kosongkan isi default
-
-    data.forEach(resto => {
-      const card = document.createElement('div');
-      card.className = 'restaurant-card';
-      card.innerHTML = `
-        <div class="pic">${resto.nama_restoran[0]}</div>
-        <div class="details">
-          <h3>${resto.nama_restoran}</h3>
-          <p>${'★'.repeat(Math.round(resto.avg_rating))}${'☆'.repeat(5 - Math.round(resto.avg_rating))} 
-             <span>${resto.kategori}</span></p>
-          <p class="price">💵💵 Estimated</p>
-          <p class="hour">🕒 ${resto.jam_operasional}</p>
-        </div>
-        <button class="add-btn">+</button>
-      `;
-      list.appendChild(card);
-    });
-  })
-  .catch(err => console.error("Gagal ambil data:", err));
-</script>
 </body>
 </html>

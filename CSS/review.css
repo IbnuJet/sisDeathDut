@@ -7,12 +7,11 @@
 }
 
 html, body {
-  min-height: 100vh;
-  overflow-y: auto;
+  height: 100vh;
+  overflow: hidden;
   background-color: #2d3244;
   color: white;
 }
-
 
 /* ───────── Navbar ───────── */
 .navbar {
@@ -267,48 +266,4 @@ html, body {
 .overlay.active {
   opacity: 1;
   visibility: visible;
-}
-
-.pagination {
-  margin-top: 30px;
-  display: flex;
-  gap: 10px;
-}
-
-.pagination button {
-  padding: 10px 20px;
-  font-weight: bold;
-  background-color: #63a59c;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.pagination button:disabled {
-  background-color: #999;
-  cursor: default;
-}
-
-.circle-btn {
-  background-color: #2d3345;
-  color: white;
-  border: none;
-  width: 45px;
-  height: 45px;
-  border-radius: 50%;
-  font-size: 20px;
-  cursor: pointer;
-  margin: 0 10px;
-  box-shadow: 0 2px 5px rgba(0,0,0,0.2);
-  transition: background-color 0.2s;
-}
-
-.circle-btn:hover {
-  background-color: #4b526d;
-}
-
-.circle-btn:disabled {
-  background-color: #ccc;
-  cursor: not-allowed;
 }

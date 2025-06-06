@@ -24,9 +24,44 @@ body {
   background-color: transparent;
 }
 
-/* All Forms */
-.form-card {
+/* Panel putih bergeser */
+.switch-panel {
   position: absolute;
+  top: 0;
+  left: 50%;
+  width: 50%;
+  height: 100%;
+  background: #f7fafa;
+  border-radius: 30px 0 0 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.6s ease;
+  z-index: 2;
+}
+
+.container.move-left .switch-panel {
+  transform: translateX(-100%);
+}
+
+/* Form Login */
+.login-form {
+  width: 50%;
+  padding: 40px;
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(6px);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  color: white;
+  z-index: 1;
+}
+
+/* Form Sign Up */
+.signup-form {
+  position: absolute;
+  right: 0;
   width: 50%;
   height: 100%;
   padding: 40px;
@@ -36,27 +71,8 @@ body {
   flex-direction: column;
   justify-content: center;
   color: white;
-  transition: all 0.6s ease;
-}
-
-.form-card form {
-  display: flex;
-  flex-direction: column;
-  gap: -10px;
-}
-
-
-
-.login-form form {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-}
-
-
-.signup-form {
-  right: 0;
   transform: translateX(100%);
+  transition: transform 0.6s ease;
   z-index: 1;
 }
 
@@ -64,33 +80,35 @@ body {
   transform: translateX(0);
 }
 
+/* Form Forgot Password */
 .forgot-form {
   position: absolute;
-  right: -100%;
+  left: -100%;
   width: 50%;
   height: 100%;
   padding: 40px;
   background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(6px);
-  display: none;
+  display: flex;
   flex-direction: column;
   justify-content: center;
   color: white;
   transition: transform 0.6s ease;
+  z-index: 1;
 }
 
-
-.container.show-forgot .forgot-form {
-  display: flex;
+.container.forgot-active .forgot-form {
+  transform: translateX(100%);
   z-index: 3;
 }
 
-.container.show-forgot .login-form,
-.container.show-forgot .signup-form {
-  display: none;
+.container.forgot-active .login-form,
+.container.forgot-active .signup-form,
+.container.forgot-active .switch-panel {
+  opacity: 0;
+  pointer-events: none;
 }
 
-/* Input & Button */
 input {
   padding: 10px;
   border-radius: 8px;
@@ -129,7 +147,6 @@ button {
   color: white;
 }
 
-/* Forgot Password Link */
 .forgot-password-link {
   margin-top: 10px;
   text-align: center;
@@ -137,49 +154,4 @@ button {
   font-size: 14px;
   text-decoration: underline;
   cursor: pointer;
-}
-
-/* Switch Panel */
-.switch-panel {
-  position: absolute;
-  top: 0;
-  left: 50%;
-  width: 50%;
-  height: 100%;
-  background: #f7fafa;
-  border-radius: 30px 0 0 30px;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  transition: transform 0.6s ease;
-  z-index: 5;
-}
-
-
-.container.move-left .switch-panel {
-  transform: translateX(-100%);
-}
-
-.container.show-forgot .switch-panel {
-  transform: translateX(-100%);
-}
-
-/* Saat show-forgot aktif, geser box putih ke kiri dan tampilkan form forgot di kanan */
-.container.show-forgot .switch-panel {
-  transform: translateX(-100%);
-}
-
-.container.show-forgot .forgot-form {
-  display: flex;
-  right: 0;
-  left: auto;
-  transform: translateX(0);
-  z-index: 3;
-}
-
-/* Sembunyikan login, signup saat forgot aktif */
-.container.show-forgot .login-form,
-.container.show-forgot .signup-form {
-  display: none;
 }

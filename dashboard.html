@@ -36,17 +36,8 @@
       }
 
       .profile-icon {
-        width: 60px;
-        height: 60px;
-        background: #2d3345;
-        border-radius: 50%;
-        color: white;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+  display: none;
+}
 
       .sidebar-name {
         font-weight: bold;
@@ -107,7 +98,7 @@
   </style>
 </head>
 <body>
-
+  
   <!-- Navbar -->
   <header class="navbar">
     <div class="brand">BookEat.com</div>
@@ -156,8 +147,9 @@
     <div class="sidebar-header">
       <div class="profile-icon">PIC</div>
       <div>
-        <p class="sidebar-name">Name</p>
-        <p class="sidebar-email">username@email.com</p>
+        <p class="sidebar-name" id="sidebar-name">Name</p>
+        <p class="sidebar-email" id="sidebar-email">username@email.com</p>
+
       </div>
     </div>
     <div class="sidebar-links">
@@ -190,6 +182,18 @@
     function logout() {
       alert("Logged out!");
     }
+    fetch("sidebar.php")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("sidebar-name").textContent = data.nama;
+      document.getElementById("sidebar-email").textContent = data.email;
+    })
+    .catch(error => console.error("Gagal mengambil data user:", error));
+
+    function logout() {
+  window.location.href = "logout.php";
+}
+
   </script>
 </body>
 </html>

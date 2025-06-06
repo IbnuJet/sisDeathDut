@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>BookEat - Review</title>
-  <link rel="stylesheet" href="review.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BookEat - Daftar Restoran</title>
+  <link rel="stylesheet" href="restaurant.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
     .sidebar {
         position: fixed;
@@ -108,37 +109,56 @@
 <body>
   <header class="navbar">
     <div class="brand">BookEat.com</div>
+
     <nav class="nav-center">
       <ul>
         <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="restaurant.html">Restaurant</a></li>
-        <li><a href="review.html" class="active">Review</a></li>
+        <li><a href="restaurant.html" class="active">Restaurant</a></li>
+        <li><a href="review.html">Review</a></li>
         <li><a href="reservation.html">Reservation</a></li>
       </ul>
     </nav>
-    <div class="hamburger" id="hamburger">
+
+    <div class="hamburger" id = "hamburger">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
   </header>
 
-  <main class="main-content">
-  <div class="search-bar">
-    <input type="text" placeholder="Search Restaurant">
-  </div>
-
-  <!-- Cards Container -->
-  <div id="cards-container" class="cards-container"></div>
-
-  <!-- Pagination Buttons -->
-  <div class="pagination-buttons" style="text-align: center; margin-top: 20px;">
-  <button id="prev-btn" class="circle-btn">&#8592;</button>
-  <button id="next-btn" class="circle-btn">&#8594;</button>
-</div>
-
-</main>
-
+  <main>
+    <div class="container">
+      <h1>Daftar Restoran</h1>
+      <table>
+        <thead>
+          <tr>
+            <th>No</th>
+            <th>Nama Restoran</th>
+            <th>Lokasi</th>
+            <th>Kategori</th>
+            <th>Jam Oper.</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Rumah Makan Padang Raya</td>
+            <td>Jl. Sumagung 3, RT.15/RW.2, Klp. Gading Tim., Kec. Klp. Gading, Jkt Utara</td>
+            <td>Asian Food</td>
+            <td>09.00 - 20.00 W</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>Dimsum Sembilan Naga</td>
+            <td>Ruko Paskal Hypersquare Blok G. 2, Jl. Pasir Kaliki No.25 - 27, Ciroyom, Kec. Andir, Kota Bandung, Jawa Barat</td>
+            <td>Asian Food</td>
+            <td>06.00 - 21.30 W</td>
+          </tr>
+          <!-- Tambahkan data lainnya sesuai kebutuhan -->
+        </tbody>
+      </table>
+    </div>
+  </main>
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
@@ -178,103 +198,6 @@
     function logout() {
       alert("Logged out!");
     }
-
-    const cardsContainer = document.getElementById('cards-container');
-const prevBtn = document.getElementById('prev-btn');
-const nextBtn = document.getElementById('next-btn');
-
-const cardsPerPage = 3;
-let currentPage = 0;
-let allCards = [];
-
-function renderCards() {
-  cardsContainer.innerHTML = '';
-
-  const start = currentPage * cardsPerPage;
-  const end = start + cardsPerPage;
-  const currentCards = allCards.slice(start, end);
-
-  currentCards.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="pic">${item.nama_restoran[0]}</div>
-      <div class="restaurant-name">${item.nama_restoran}</div>
-      <div class="stars">${'★'.repeat(item.rating)}<span class="black-star">${'☆'.repeat(5 - item.rating)}</span></div>
-      <button class="more-btn">More</button>
-    `;
-    cardsContainer.appendChild(card);
-  });
-
-  prevBtn.disabled = currentPage === 0;
-  nextBtn.disabled = (currentPage + 1) * cardsPerPage >= allCards.length;
-}
-
-prevBtn.addEventListener('click', () => {
-  if (currentPage > 0) {
-    currentPage--;
-    renderCards();
-  }
-});
-
-nextBtn.addEventListener('click', () => {
-  if ((currentPage + 1) * cardsPerPage < allCards.length) {
-    currentPage++;
-    renderCards();
-  }
-});
-
-// Fetch data dari PHP
-fetch('review.php')
-  .then(response => response.json())
-  .then(data => {
-    allCards = data;
-    renderCards();
-  })
-  .catch(error => console.error('Gagal mengambil data review:', error));
-
-  const searchInput = document.querySelector('.search-bar input');
-
-searchInput.addEventListener('input', () => {
-  const keyword = searchInput.value.toLowerCase();
-
-  if (keyword === '') {
-    // Reset ke awal
-    currentPage = 0;
-    renderCards();
-    prevBtn.style.display = '';
-    nextBtn.style.display = '';
-    return;
-  }
-
-  const filteredCards = allCards.filter(item =>
-    item.nama_restoran.toLowerCase().includes(keyword)
-  );
-
-  renderFilteredCards(filteredCards);
-});
-
-
-function renderFilteredCards(filteredData) {
-  cardsContainer.innerHTML = '';
-
-  filteredData.forEach(item => {
-    const card = document.createElement('div');
-    card.className = 'card';
-    card.innerHTML = `
-      <div class="pic">${item.nama_restoran[0]}</div>
-      <div class="restaurant-name">${item.nama_restoran}</div>
-      <div class="stars">${'★'.repeat(item.rating)}<span class="black-star">${'☆'.repeat(5 - item.rating)}</span></div>
-      <button class="more-btn">More</button>
-    `;
-    cardsContainer.appendChild(card);
-  });
-
-  // Sembunyikan tombol pagination saat pencarian
-  prevBtn.style.display = filteredData.length < allCards.length ? 'none' : '';
-  nextBtn.style.display = filteredData.length < allCards.length ? 'none' : '';
-}
-
   </script>
 </body>
 </html>
