@@ -59,64 +59,63 @@
   </div>
 
   <!-- Sidebar -->
-<div id="sidebar" class="sidebar">
-  <div class="sidebar-header">
-    <div class="profile-icon">PIC</div>
-    <div>
-      <p class="sidebar-name">Name</p>
-      <p class="sidebar-email">username@email.com</p>
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div>
+        <p class="sidebar-name">Name</p>
+        <p class="sidebar-email">username@email.com</p>
+      </div>
     </div>
+    <div class="sidebar-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="my_reserv.html">My Reservation</a>
+      <a href="#">My Review</a>
+    </div>
+    <button class="logout-btn" onclick="logout()">LOG OUT</button>
   </div>
-  <div class="sidebar-links">
-    <a href="dashboard.html">Dashboard</a>
-    <a href="#">My Reservation</a>
-    <a href="#">My Review</a>
-  </div>
-  <button class="logout-btn" onclick="logout()">LOG OUT</button>
-</div>
 
-<!-- Overlay -->
-<div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-<!-- JavaScript -->
-<script>
-  function toggleSidebar() {
-    document.getElementById("sidebar").classList.toggle("active");
-    document.getElementById("overlay").classList.toggle("active");
-  }
+  <!-- JavaScript -->
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
 
-  function logout() {
-    alert("You have been logged out.");
-    window.location.href = "signIn.html"; // Ganti sesuai nama file login kamu
-  }
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "signIn.html"; // Ganti sesuai nama file login kamu
+    }
 
-  // Tambahkan event ke ikon hamburger
-  document.querySelector('.menu-icon').addEventListener('click', toggleSidebar);
+    // Tambahkan event ke ikon hamburger
+    document.querySelector('.menu-icon').addEventListener('click', toggleSidebar);
 
-   fetch('profile.php')
-    .then(res => res.json())
-    .then(data => {
-      if (data.error) {
-        console.error(data.error);
-        return;
-      }
+    fetch('profile.php')
+      .then(res => res.json())
+      .then(data => {
+        if (data.error) {
+          console.error(data.error);
+          return;
+        }
 
-      // Header & Sidebar
-      document.querySelector('.user-name').textContent = data.nama_customer;
-      document.querySelector('.user-email').textContent = data.email;
-      document.querySelector('.sidebar-name').textContent = data.nama_customer;
-      document.querySelector('.sidebar-email').textContent = data.email;
+        // Header & Sidebar
+        document.querySelector('.user-name').textContent = data.nama_customer;
+        document.querySelector('.user-email').textContent = data.email;
+        document.querySelector('.sidebar-name').textContent = data.nama_customer;
+        document.querySelector('.sidebar-email').textContent = data.email;
 
-      // Card Content
-      const infoBold = document.querySelectorAll('.info-bold');
-      infoBold[0].textContent = data.nama_customer;
-      infoBold[1].textContent = data.email;
-      infoBold[2].textContent = "**************"; // Jangan tampilkan password asli
-      infoBold[3].textContent = data.no_telp || "-";
-      infoBold[4].textContent = data.gender === "female" ? "♂" : data.gender === "male" ? "♀" : "-";
-    })
-    .catch(err => console.error('Gagal ambil data user:', err));
-</script>
+        // Card Content
+        const infoBold = document.querySelectorAll('.info-bold');
+        infoBold[0].textContent = data.nama_customer;
+        infoBold[1].textContent = data.email;
+        infoBold[2].textContent = "**************"; // Jangan tampilkan password asli
+        infoBold[3].textContent = data.no_telp || "-";
+        infoBold[4].textContent = data.gender === "female" ? "♂" : data.gender === "male" ? "♀" : "-";
+      })
+      .catch(err => console.error('Gagal ambil data user:', err));
+  </script>
 
 </body>
 </html>

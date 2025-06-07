@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
@@ -9,7 +9,6 @@
 <body>
   <div class="background"></div>
 
-  <!-- Tulisan RESERVATION dan Header kanan -->
   <div class="right-title-bar">
     <div class="right-title-header">
       <div class="logo">BookEat.com</div>
@@ -38,21 +37,100 @@
     <div class="filters">
       <select>
         <option>Pilih Restoran</option>
+        <option>resto_1</option>
+        <option>resto_2</option>
+        <option>resto_3</option>
+        <option>resto_4</option>
+        <option>resto_5</option>
       </select>
-      <input type="date" />
+      <input type="date" placeholder="MM/DD/YY" />
     </div>
-    <table class="reservation-table">
-      <tr>
-        <td>1</td>
-        <td>resto_1</td>
-        <td>YYYY-MM-DD</td>
-        <td>xx:yy - xx:yy zzz</td>
-        <td>org</td>
-        <td>status</td>
-        <td><a href="#">edit</a></td>
-        <td><a href="#" class="hapus">hapus</a></td>
-      </tr>
-    </table>
+    <div class="reservation-list">
+      <div class="reservation-row">
+        <div class="number">1</div>
+        <div class="resto">resto_1</div>
+        <div class="date">YYYY-MM-DD</div>
+        <div class="time">xx:yy - xx:yy zzz</div>
+        <div class="chip org">org</div>
+        <div class="chip status">status</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="reservation-row">
+        <div class="number">2</div>
+        <div class="resto">resto_2</div>
+        <div class="date">YYYY-MM-DD</div>
+        <div class="time">xx:yy - xx:yy zzz</div>
+        <div class="chip org">org</div>
+        <div class="chip status">status</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="reservation-row">
+        <div class="number">3</div>
+        <div class="resto">resto_3</div>
+        <div class="date">YYYY-MM-DD</div>
+        <div class="time">xx:yy - xx:yy zzz</div>
+        <div class="chip org">org</div>
+        <div class="chip status">status</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="reservation-row">
+        <div class="number">4</div>
+        <div class="resto">resto_4</div>
+        <div class="date">YYYY-MM-DD</div>
+        <div class="time">xx:yy - xx:yy zzz</div>
+        <div class="chip org">org</div>
+        <div class="chip status">status</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="reservation-row">
+        <div class="number">5</div>
+        <div class="resto">resto_5</div>
+        <div class="date">YYYY-MM-DD</div>
+        <div class="time">xx:yy - xx:yy zzz</div>
+        <div class="chip org">org</div>
+        <div class="chip status">status</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+    </div>
   </div>
+
+  <!-- Hamburger/Menu Icon -->
+  <div class="hamburger-container">
+    <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+  </div>
+
+  <!-- Sidebar (nempel kiri right-title-bar, awalnya tidak muncul) -->
+  <div id="sidebar" class="sidebar">
+  <div class="sidebar-header">
+    <div class="sidebar-name">Name</div>
+    <div class="sidebar-email">username@email.com</div>
+  </div>
+  <div class="sidebar-links">
+    <a href="dashboard.html">Dashboard</a>
+    <a href="my_reserv.html">My Reservation</a>
+    <a href="#">My Review</a>
+  </div>
+  <button class="logout-btn" onclick="logout()">LOG OUT</button>
+</div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "signIn.html";
+    }
+  </script>
+
 </body>
 </html>
