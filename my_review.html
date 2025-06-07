@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>My Review</title>
+  <link rel="stylesheet" href="my_review.css" />
+</head>
+<body>
+  <!-- Background -->
+  <div class="bg"></div>
+
+  <!-- Sidebar kiri -->
+  <div class="left-bar">
+    <div class="left-header">
+      <div class="logo">BookEat.com</div>
+      <div class="back-btn">&#8592;</div>
+    </div>
+    <div class="vertical-right">
+      <span>M</span>
+      <span>Y</span>
+    </div>
+    <div class="vertical-title">
+      <span>R</span>
+      <span>E</span>
+      <span>V</span>
+      <span>I</span>
+      <span>E</span>
+      <span>W</span>
+    </div>
+  </div>
+
+  <!-- Content utama -->
+  <div class="content-box">
+    <div class="filter-bar">
+      <select>
+        <option>Pilih Restoran</option>
+        <option>resto_1</option>
+        <option>resto_2</option>
+        <option>resto_3</option>
+        <option>resto_4</option>
+        <option>resto_5</option>
+      </select>
+    </div>
+    <div class="review-list">
+      <!-- Satu baris list -->
+      <div class="review-row">
+        <div class="num">1</div>
+        <div class="resto">resto_1</div>
+        <div class="rating">rating</div>
+        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
+        <div class="tanggal">YYYY-MM-DD</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="review-row">
+        <div class="num">2</div>
+        <div class="resto">resto_2</div>
+        <div class="rating">rating</div>
+        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
+        <div class="tanggal">YYYY-MM-DD</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="review-row">
+        <div class="num">3</div>
+        <div class="resto">resto_3</div>
+        <div class="rating">rating</div>
+        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
+        <div class="tanggal">YYYY-MM-DD</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="review-row">
+        <div class="num">4</div>
+        <div class="resto">resto_4</div>
+        <div class="rating">rating</div>
+        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
+        <div class="tanggal">YYYY-MM-DD</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+      <div class="review-row">
+        <div class="num">5</div>
+        <div class="resto">resto_5</div>
+        <div class="rating">rating</div>
+        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
+        <div class="tanggal">YYYY-MM-DD</div>
+        <a href="#" class="edit-btn">edit</a>
+        <a href="#" class="hapus-btn">hapus</a>
+      </div>
+    </div>
+  </div>
+
+    <!-- Hamburger/Menu Icon -->
+  <div class="hamburger-container">
+    <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+  </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div>
+        <p class="sidebar-name">Name</p>
+        <p class="sidebar-email">username@email.com</p>
+      </div>
+    </div>
+    <div class="sidebar-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="my_reserv.html">My Reservation</a>
+      <a href="my_review.html">My Review</a>
+    </div>
+    <button class="logout-btn" onclick="logout()">LOG OUT</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+
+  <!-- JavaScript -->
+  <script>
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "signIn.html"; // Ganti sesuai nama file login kamu
+    }
+  </script>
+</body>
+</html>

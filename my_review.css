@@ -1,122 +1,125 @@
 body {
   margin: 0;
-  font-family: 'Arial Rounded MT Bold', sans-serif;
-  color: #2d3345;
-  position: relative;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+  box-sizing: border-box;
   overflow-x: hidden;
 }
 
-.background {
+/* Background */
+.bg {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: url("assets/my_reserv_bg.png") no-repeat center center/cover;
+  width: 100vw;
+  height: 100vh;
+  background: url('assets/my_review_bg.png') center center/cover no-repeat;
   z-index: -1;
 }
 
-/* Sidebar Kanan */
-.right-title-bar {
+.left-bar {
   position: fixed;
   top: 0;
-  right: 0;
+  left: 0;
   width: 180px;
   height: 100%;
-  background-color: #609d97;
+  color:white;
+  background: #609d97;
+  z-index: 2;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding-top: 20px;
-  color: white;
-  z-index: 1000;
+  align-items: flex-start;
 }
 
-.right-title-header {
+.left-header {
+  width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start;
+  padding: 18px 0 0 18px;
   gap: 5px;
-  margin-bottom: 20px;
 }
 
-.logo {
+.left-header .logo {
   font-size: 1.1rem;
   font-weight: bold;
-  margin-right: 50px;
-  margin-top: -10px;
+  margin-bottom: 3px;
+  margin-top: -5px;
+  letter-spacing: 0.5px;
 }
 
-.back-btn {
+.left-header .back-btn {
   font-size: 1.5rem;
+  font-weight: bold;
   cursor: pointer;
-  margin-right: 135px;
   margin-top: -5px;
+  margin-left: 2px;
 }
 
 .vertical-title {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  font-size: 2.7rem;
+  gap: 15px;
+  font-size: 4rem;
   font-weight: bold;
   letter-spacing: 1px;
-  margin-left: 80px;
+  margin-top: 50px;
+  margin-left: 100px;
 }
 
-.vertical-left {
+.vertical-right {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 5px;
-  font-size: 2.7rem;
+  gap: 15px;
+  font-size: 4rem;
   font-weight: bold;
-  color: white;
   writing-mode: vertical-rl;
   transform: rotate(270deg);
-  margin-top: 20px;
-  margin-right: 80px;
+  margin-top: 75px;
+  margin-left: -25px;
 }
 
-/* Konten utama */
+/* Content box */
 .content-box {
-  position: relative;
-  width: 48%;
-  min-width: 420px;
-  margin: 100px auto;
-  margin-left: 14%;
-  padding: 20px;
+  position: absolute;
+  left: 270px;
+  right: 0;
+  top: 60px;
+  margin: 0 auto;
+  width: 900px;
+  max-width: 95vw;
   background-color: rgba(255,255,255,0.5);
   border-radius: 20px;
+  padding: 20px;
+  z-index: 10;
+  box-sizing: border-box;
 }
 
-.filters {
+.filter-bar {
+  width: 100%;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
-  margin-left: 15px;
+  margin-bottom: 18px;
 }
-
-.filters select,
-.filters input {
-  padding: 10px;
-  border-radius: 10px;
-  border: none;
-  background-color: #D9D9D9;
+.filter-bar select {
+  margin-left: 15px;
   font-family: inherit;
   font-size: 1rem;
+  padding: 7px 12px;
+  border-radius: 10px;
+  border: none;
+  background: #D9D9D9;
 }
 
-.reservation-list {
+/* Review Table/List */
+.review-list {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
-
-.reservation-row {
+.review-row {
   display: flex;
   align-items: center;
   gap: 15px;
@@ -125,7 +128,7 @@ body {
   box-shadow: 0 1px 6px 0 rgba(0,0,0,0.04);
 }
 
-.number {
+.num {
   width: 32px;
   height: 32px;
   background: #D9D9D9;
@@ -135,48 +138,36 @@ body {
   justify-content: center;
   color: black;
   font-size: 1.1rem;
-  border: 1.5px solid #d9d9dd;
-  margin-right: 3px;
+  border: 1.5px solid #d9d9d9;
 }
 
-.resto {
-  min-width: 90px;
+.resto, .rating, .tanggal {
   background-color: #D9D9D9;
-  padding: 5px;
+  padding: 3px 15px;
+  margin-right: 1.5px;
   border-radius: 15px;
   text-align: center;
 }
 
-.date, .time {
-  font-size: 0.9rem;
+.rating {
+  font-weight: lighter;
+}
+
+.review-text {
+  flex: 1;
   color: black;
   background-color: #D9D9D9;
-  padding: 3px;
-  border-radius: 15px;
-}
-
-.chip {
-  padding: 2px 12px;
+  padding: 4px 0px;
   border-radius: 12px;
-  font-size: 0.85rem;
-  font-weight: 600;
-  background: #D9D9D9;
-  color: black;
-  margin-right: 2px;
+  text-align: center;
+}
+.review-text .expand {
+  color: #606060;
+  font-style: italic;
+  margin-left: 6px;
 }
 
-.chip.org {
-  background: #D9D9D9;
-  color: black;
-  font-weight:lighter;
-}
-
-.chip.status {
-  background: #D9D9D9;
-  color: black;
-  font-weight:lighter;
-}
-
+/* Action buttons */
 .edit-btn {
   color: black;
   background: rgba(0, 221, 255, 0.5);
@@ -186,11 +177,9 @@ body {
   transition: background 0.18s;
   text-decoration: none;
 }
-
 .edit-btn:hover {
   background: #b1e7ee;
 }
-
 .hapus-btn {
   color: black;
   background: rgba(255,0,4,0.5);
@@ -205,12 +194,12 @@ body {
   background: #d12323;
 }
 
-/* Hamburger */
+/* Hamburger/Menu Icon */
 .hamburger-container {
   position: fixed;
-  top: 20px;
-  right: 200px; /* nempel kiri right-title-bar */
-  z-index: 1100;
+  top: 30px;
+  right: 30px;
+  z-index: 1500;
 }
 .menu-icon {
   font-size: 2.1rem;
@@ -230,58 +219,53 @@ body {
   background: #e8f8f7;
 }
 
-/* Sidebar (hidden awal, muncul slide-in dari kanan) */
 .sidebar {
   position: fixed;
   top: 0;
-  right: 180px;              /* nempel di kiri right-title-bar */
-  height: 38%;
+  right: -290px;      /* Sidebar di luar layar kanan (hidden) */
+  height: 40%;
   width: 250px;
   background: #f1f1f1;
-  box-shadow: -2px 0 8px rgba(0,0,0,0.10);
+  box-shadow: -2px 0 5px rgba(0,0,0,0.3);
   transition: right 0.3s ease;
-  z-index: 1200;
+  z-index: 2001;
   border-top-left-radius: 20px;
   border-bottom-left-radius: 20px;
   display: flex;
   flex-direction: column;
   padding: 20px;
-  font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
-  transform: translateX(120%);
-  opacity: 0;
-  pointer-events: none;
-  transition:
-    transform 0.3s ease,
-    opacity 0.2s;
+  font-family: 'Arial Rounded MT Bold', sans-serif;
 }
 
 .sidebar.active {
-  transform: translateX(0);
-  opacity: 1;
-  pointer-events: auto;
+  right: 0;
 }
 
-/* Header */
 .sidebar-header {
-  margin-bottom: 22px;
+  display: flex;
+  align-items: center;
+  gap: 15px;
 }
 
 .sidebar-name {
   font-weight: bold;
   font-size: 1.2rem;
   color: #2d3345;
+  margin-top: 0px;
 }
 .sidebar-email {
   font-size: 0.9rem;
   color: #333;
+  margin-top: -19px;
 }
 
 /* Links */
 .sidebar-links {
+  margin-top: 15px;
+  flex-grow: 1;
   display: flex;
   flex-direction: column;
-  gap: 15px;
-  margin-bottom: 28px;
+  gap: 15.5px;
 }
 .sidebar-links a {
   text-decoration: none;
@@ -289,7 +273,6 @@ body {
   font-size: 1.2rem;
   padding: 10px 0;
   border-bottom: 1px solid #ccc;
-  transition: color 0.14s;
 }
 
 /* Logout button */
@@ -313,12 +296,12 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.18);
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0,0,0,0.3);
   opacity: 0;
   visibility: hidden;
-  z-index: 1100;
+  z-index: 2000;
   transition: opacity 0.3s ease;
 }
 .overlay.active {
