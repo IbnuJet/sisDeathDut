@@ -19,11 +19,12 @@
         <li><a href="reservation.html" class="active">Reservation</a></li>
       </ul>
     </nav>
-    <div class="hamburger">
+    <div class="hamburger" id="hamburger">
       <span class="bar"></span>
       <span class="bar"></span>
       <span class="bar"></span>
     </div>
+
   </header>
 
 
@@ -78,31 +79,81 @@
       </div>
     </section>
   </div>
-  <script>
-fetch('reservation.php')
-  .then(res => res.json())
-  .then(data => {
-    const list = document.querySelector('.restaurant-list');
-    list.innerHTML = ''; // Kosongkan isi default
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div>
+        <p class="sidebar-name" id="sidebar-name">Name</p>
+        <p class="sidebar-email" id="sidebar-email">username@email.com</p>
+      </div>
+    </div>
+    <div class="sidebar-links">
+      <a href="profile.html">Profile</a>
+      <a href="my_reserv.html">My Reservation</a>
+      <a href="my_review.html">My Review</a>
+    </div>
+    <button class="logout-btn" onclick="logout()">LOG OUT</button>
+  </div>
 
-    data.forEach(resto => {
-      const card = document.createElement('div');
-      card.className = 'restaurant-card';
-      card.innerHTML = `
-        <div class="pic">${resto.nama_restoran[0]}</div>
-        <div class="details">
-          <h3>${resto.nama_restoran}</h3>
-          <p>${'★'.repeat(Math.round(resto.avg_rating))}${'☆'.repeat(5 - Math.round(resto.avg_rating))} 
-             <span>${resto.kategori}</span></p>
-          <p class="price">💵💵 Estimated</p>
-          <p class="hour">🕒 ${resto.jam_operasional}</p>
-        </div>
-        <button class="add-btn">+</button>
-      `;
-      list.appendChild(card);
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <!-- JavaScript -->
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
     });
-  })
-  .catch(err => console.error("Gagal ambil data:", err));
-</script>
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+  
+    function logout() {
+      alert("Logged out!");
+    }
+    fetch("sidebar.php")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("sidebar-name").textContent = data.nama;
+      document.getElementById("sidebar-email").textContent = data.email;
+    })
+    .catch(error => console.error("Gagal mengambil data user:", error));
+  
+    function logout() {
+  window.location.href = "logout.php";
+  }
+
+  fetch('reservation.php')
+    .then(res => res.json())
+    .then(data => {
+      const list = document.querySelector('.restaurant-list');
+      list.innerHTML = ''; // Kosongkan isi default
+
+      data.forEach(resto => {
+        const card = document.createElement('div');
+        card.className = 'restaurant-card';
+        card.innerHTML = `
+          <div class="pic">${resto.nama_restoran[0]}</div>
+          <div class="details">
+            <h3>${resto.nama_restoran}</h3>
+            <p>${'★'.repeat(Math.round(resto.avg_rating))}${'☆'.repeat(5 - Math.round(resto.avg_rating))} 
+              <span>${resto.kategori}</span></p>
+            <p class="price">💵💵 Estimated</p>
+            <p class="hour">🕒 ${resto.jam_operasional}</p>
+          </div>
+          <button class="add-btn">+</button>
+        `;
+        list.appendChild(card);
+      });
+    })
+    .catch(err => console.error("Gagal ambil data:", err));
+  </script>
 </body>
 </html>
