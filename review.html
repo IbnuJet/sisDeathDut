@@ -200,7 +200,7 @@ function renderCards() {
       <div class="pic">${item.nama_restoran[0]}</div>
       <div class="restaurant-name">${item.nama_restoran}</div>
       <div class="stars">${'★'.repeat(item.rating)}<span class="black-star">${'☆'.repeat(5 - item.rating)}</span></div>
-      <button class="more-btn">More</button>
+      <a class="more-btn" href="review2.html?id_restoran=${item.id_restoran}">More</a>
     `;
     cardsContainer.appendChild(card);
   });

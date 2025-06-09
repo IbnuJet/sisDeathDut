@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>BookEat - Review</title>
+  <link rel="stylesheet" href="review2.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
+</head>
+<body>
+  <header class="navbar">
+    <div class="brand">BookEat.com</div>
+    <nav class="nav-center">
+      <ul>
+        <li><a href="dashboard.html">Dashboard</a></li>
+        <li><a href="restaurant.html">Restaurant</a></li>
+        <li><a href="review.html" class="active">Review</a></li>
+        <li><a href="reservation.html">Reservation</a></li>
+      </ul>
+    </nav>
+    <div class="hamburger">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </div>
+  </header>
+
+  <main class="review-container">
+    <div class="restaurant-info">
+      <div class="pic">PIC</div>
+      <div class="info">
+        <p class="name">Restaurant's Name</p>
+        <p class="rating">★★★★★</p>
+        <button class="back-btn">Back</button>
+        <button class="add-btn" onclick="goToAddReview()">+</button>
+      </div>
+    </div>
+
+    <!-- Tempat review-card akan muncul secara dinamis -->
+  </main>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const idRestoran = params.get('id_restoran');
+
+    if (idRestoran) {
+  fetch(`review2.php?id=${idRestoran}`)
+    .then(response => response.json())
+    .then(data => {
+      const container = document.querySelector('.review-container');
+      container.querySelectorAll('.review-card').forEach(e => e.remove());
+
+      if (data.length > 0) {
+        document.querySelector('.name').textContent = data[0].nama_restoran;
+
+        data.forEach(item => {
+          const review = document.createElement('div');
+          review.className = 'review-card';
+          review.innerHTML = `
+            <h3 class="review-title">Ulasan</h3>
+            <p class="rating-line">${'★'.repeat(item.rating)}${'☆'.repeat(5 - item.rating)} • ${item.tanggal_review} • ${item.nama_customer}</p>
+            <p class="review-short">${item.komentar}</p>
+          `;
+          container.appendChild(review);
+        });
+      } else {
+        document.querySelector('.name').textContent = "No Reviews";
+      }
+    });
+}
+
+    document.querySelector('.back-btn').addEventListener('click', () => {
+      window.location.href = 'review.html';
+    });
+
+    function goToAddReview() {
+      // Arahkan ke halaman tambah review dengan parameter id_restoran
+      window.location.href = `review3.html?id=${idRestoran}`;
+    }
+  </script>
+</body>
+</html>
