@@ -1,0 +1,189 @@
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: 'Poppins', sans-serif;
+}
+
+body {
+  background-color:#2d3244;
+  color: white;
+  min-height: 100vh;
+  overflow-y: auto;
+}
+
+.main-content {
+  padding-top: 100px; /* Menyesuaikan tinggi navbar (80px + jarak aman) */
+}
+
+.background-overlay {
+  min-height: 100vh; /* agar tinggi mengikuti isi */
+  overflow-y: auto;   /* memungkinkan scroll */
+}
+
+
+/* Navbar */    
+.navbar {
+  background-color: #63a59c;
+  width: 100%;
+  height: 80px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0;
+  z-index: 100;
+}
+
+.brand {
+  margin-left: 16px;
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: white;
+}
+
+.nav-center {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+}
+
+.nav-center ul {
+  list-style: none;
+  display: flex;
+  gap: 24px;
+}
+
+.nav-center ul li a {
+  text-decoration: none;
+  font-weight: 600;
+  color: white;
+  background-color: rgba(255, 255, 255, 0.3);
+  padding: 8px 20px;
+  border-radius: 25px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-center ul li a:hover,
+.nav-center ul li a.active {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.hamburger {
+  margin-right: 16px;
+  width: 24px;
+  height: 18px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  cursor: pointer;
+}
+
+.hamburger .bar {
+  height: 3px;
+  width: 100%;
+  background-color: white;
+  border-radius: 2px;
+}
+
+
+/* Review Section */
+.review-container {
+  padding: 100px 2rem 2rem;
+}
+
+.restaurant-info {
+  display: flex;
+  background-color: rgba(255, 255, 255, 0.1);
+  padding: 1rem;
+  border-radius: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.restaurant-info .pic {
+  background: white;
+  color: black;
+  font-weight: bold;
+  font-size: 1.5rem;
+  width: 80px;
+  height: 80px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 0.5rem;
+  margin-right: 1rem;
+}
+
+.restaurant-info .info {
+  flex-grow: 1;
+}
+
+.restaurant-info .name {
+  font-weight: 600;
+  font-size: 1.2rem;
+}
+
+.restaurant-info .rating {
+  color: yellow;
+  font-size: 1.2rem;
+  margin: 0.5rem 0;
+}
+
+.back-btn,
+.add-btn {
+  margin: 0.5rem 0.25rem;
+  padding: 0.4rem 1rem;
+  background-color: #4ca6a8;
+  border: none;
+  border-radius: 0.8rem;
+  color: white;
+  cursor: pointer;
+}
+
+/* Review Card */
+.review-card {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 1rem;
+  padding: 1rem 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+.review-title {
+  font-weight: 600;
+  font-size: 1.2rem;
+  margin-bottom: 0.3rem;
+}
+
+.rating-line {
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.review-short {
+  margin-bottom: 0.8rem;
+}
+
+.more-btn {
+  background-color: transparent;
+  border: 1px solid #fff;
+  border-radius: 0.5rem;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+}
+
+.review-detail {
+  display: none;
+  margin-top: 0.5rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.review-detail.show {
+  display: block;
+}

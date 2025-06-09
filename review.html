@@ -35,17 +35,8 @@
       }
 
       .profile-icon {
-        width: 60px;
-        height: 60px;
-        background: #2d3345;
-        border-radius: 50%;
-        color: white;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+  display: none;
+}
 
       .sidebar-name {
         font-weight: bold;
@@ -143,8 +134,8 @@
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <div>
-        <p class="sidebar-name">Name</p>
-        <p class="sidebar-email">username@email.com</p>
+        <p class="sidebar-name" id="sidebar-name">Name</p>
+        <p class="sidebar-email" id="sidebar-email">username@email.com</p>
       </div>
     </div>
     <div class="sidebar-links">
@@ -177,6 +168,17 @@
     function logout() {
       alert("Logged out!");
     }
+    fetch("sidebar.php")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("sidebar-name").textContent = data.nama;
+      document.getElementById("sidebar-email").textContent = data.email;
+    })
+    .catch(error => console.error("Gagal mengambil data user:", error));
+
+    function logout() {
+  window.location.href = "logout.php";
+}
 
     const cardsContainer = document.getElementById('cards-container');
 const prevBtn = document.getElementById('prev-btn');
@@ -200,7 +202,7 @@ function renderCards() {
       <div class="pic">${item.nama_restoran[0]}</div>
       <div class="restaurant-name">${item.nama_restoran}</div>
       <div class="stars">${'★'.repeat(item.rating)}<span class="black-star">${'☆'.repeat(5 - item.rating)}</span></div>
-      <button class="more-btn">More</button>
+      <a class="more-btn" href="review2.html?id_restoran=${item.id_restoran}">More</a>
     `;
     cardsContainer.appendChild(card);
   });
