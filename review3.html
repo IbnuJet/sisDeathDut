@@ -114,7 +114,11 @@
     .then(res => res.json())
     .then(res => {
       if (res.success) {
+<<<<<<< HEAD
+        window.location.href = 'review.html';
+=======
         window.location.href = `review2.php?id_restoran=${id_restoran}`;
+>>>>>>> 1c3516549099ba1af1a11cebc2254a39112a0ea6
       } else {
         alert("Error: " + res.error);
       }
@@ -126,6 +130,9 @@
   }
 </script>
 
+<<<<<<< HEAD
+=======
 
+>>>>>>> 1c3516549099ba1af1a11cebc2254a39112a0ea6
 </body>
 </html>
