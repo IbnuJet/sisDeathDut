@@ -43,7 +43,7 @@
     const idRestoran = params.get('id_restoran');
 
     if (idRestoran) {
-  fetch(`review2.php?id=${idRestoran}`)
+  fetch(`review2.php?id_restoran=${idRestoran}`)
     .then(response => response.json())
     .then(data => {
       const container = document.querySelector('.review-container');
@@ -74,7 +74,7 @@
 
     function goToAddReview() {
       // Arahkan ke halaman tambah review dengan parameter id_restoran
-      window.location.href = `review3.html?id=${idRestoran}`;
+      window.location.href = `review3.html?id_restoran=${idRestoran}`;
     }
   </script>
 </body>

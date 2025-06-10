@@ -1,4 +1,9 @@
 <?php
+
+session_start();
+$_SESSION['id_customer'] = $row['id_customer']; // Simpan id dari DB
+
+
 // Koneksi ke database
 $host = "localhost";
 $user = "root";

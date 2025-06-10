@@ -43,96 +43,120 @@
       <div class="stars-selected"></div>
       <textarea id="review-text" placeholder="Choose a rating first, then add a review!"></textarea>
       <div class="button-row">
-  <button class="back-btn" onclick="goBack()">Back</button>
-  <button id="submit-review">Send</button>
-</div>
-
+        <button class="back-btn" onclick="goBack()">Back</button>
+        <button id="submit-review">Send</button>
+      </div>
     </div>
   </main>
 
   <script>
-  const params = new URLSearchParams(window.location.search);
-  const idRestoran = params.get('id');
-  const id_restoran = parseInt(params.get("id")); // Ambil ID dari URL
-  const id_customer = 1; // GANTI dengan ID customer dari session nanti
-  let selectedRating = 0;
+    const params = new URLSearchParams(window.location.search);
+    let idRestoran = params.get('id_restoran');
+    const idReview = params.get('id_review');
+    let id_customer = null;
+    let selectedRating = 0;
 
-  const stars = document.querySelectorAll('.star');
-  const starsSelected = document.querySelector('.stars-selected');
+    const stars = document.querySelectorAll('.star');
+    const starsSelected = document.querySelector('.stars-selected');
 
-  // ⭐ Handle klik pada bintang
-  stars.forEach(star => {
-    star.addEventListener('click', () => {
-      selectedRating = parseInt(star.dataset.value);
-      updateStars(selectedRating);
-    });
-  });
-
-  // Fungsi untuk update tampilan bintang
-  function updateStars(rating) {
-    stars.forEach(star => {
-      star.textContent = parseInt(star.dataset.value) <= rating ? '★' : '☆';
-    });
-    starsSelected.textContent = `Rating: ${rating}`;
-  }
-
-  // Load data restoran
-  if (idRestoran) {
-    fetch(`review3.php?id=${idRestoran}`)
+    fetch('get_session.php')
       .then(res => res.json())
       .then(data => {
-        if (data.length > 0) {
-          document.querySelector('.name').textContent = data[0].nama_restoran;
+        if (data.id_customer) {
+          id_customer = data.id_customer;
         } else {
-          document.querySelector('.name').textContent = "Restoran Tidak Ditemukan";
+          alert("Silakan login terlebih dahulu.");
+          window.location.href = "signin.html";
         }
-      })
-      .catch(err => {
-        console.error("Gagal fetch data:", err);
       });
-  }
 
-  // Tombol submit
-  document.getElementById('submit-review').addEventListener('click', () => {
-    const text = document.getElementById('review-text').value.trim();
+    stars.forEach(star => {
+      star.addEventListener('click', () => {
+        selectedRating = parseInt(star.dataset.value);
+        updateStars(selectedRating);
+      });
+    });
 
-    if (!id_restoran || !selectedRating || !text || !id_customer) {
-      alert("Please complete all fields.");
-      return;
+    function updateStars(rating) {
+      stars.forEach(star => {
+        star.textContent = parseInt(star.dataset.value) <= rating ? '★' : '☆';
+      });
+      starsSelected.textContent = `Rating: ${rating}`;
     }
 
-    fetch('review3.php', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        id_restoran: id_restoran,
-        id_customer: id_customer,
-        rating: selectedRating,
-        komentar: text
-      })
-    })
-    .then(res => res.json())
-    .then(res => {
-      if (res.success) {
-<<<<<<< HEAD
-        window.location.href = 'review.html';
-=======
-        window.location.href = `review2.php?id_restoran=${id_restoran}`;
->>>>>>> 1c3516549099ba1af1a11cebc2254a39112a0ea6
-      } else {
-        alert("Error: " + res.error);
+    function handleSubmit(isEdit = false) {
+      const komentar = document.getElementById("review-text").value.trim();
+      if ((!idRestoran && !isEdit) || !selectedRating || !komentar || !id_customer) {
+        alert("Please complete all fields.");
+        return;
       }
-    });
-  });
 
-  function goBack() {
-    window.location.href = `review2.php?id_restoran=${id_restoran}`;
+      const payload = {
+        rating: selectedRating,
+        komentar: komentar
+      };
+
+      if (isEdit) {
+        payload.id_review = parseInt(idReview);
+      } else {
+        payload.id_restoran = parseInt(idRestoran);
+        payload.id_customer = id_customer;
+      }
+
+      fetch('review3.php', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      })
+      .then(res => res.json())
+      .then(res => {
+        if (res.success) {
+          if (isEdit) {
+            window.location.href = "my_review.html";
+          } else {
+            window.location.href = `review2.php?id_restoran=${idRestoran}`;
+          }
+        } else {
+          alert("Error: " + res.error);
+        }
+      });
+    }
+
+    if (idReview) {
+      fetch('review3.php', {
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json'
+  },
+  body: JSON.stringify(data)
+})
+.then(response => response.json())
+.then(result => {
+  if (result.success) {
+    // Redirect ke halaman review2 jika sukses
+    window.location.href = 'review2.php?id_restoran=' + id_restoran;
+  } else {
+    alert(result.error || "Gagal menyimpan review.");
   }
-</script>
+});
 
-<<<<<<< HEAD
-=======
+    } else if (idRestoran) {
+      fetch(`review3.php?id_restoran=${idRestoran}`)
+        .then(res => res.json())
+        .then(data => {
+          document.querySelector('.name').textContent = data.nama_restoran || "Restoran Tidak Ditemukan";
+        });
+      document.getElementById("submit-review").onclick = () => handleSubmit(!!idReview);
+      // document.getElementById("submit-review").onclick = () => handleSubmit(false);
+    }
 
->>>>>>> 1c3516549099ba1af1a11cebc2254a39112a0ea6
+    function goBack() {
+      if (idRestoran) {
+        window.location.href = `review2.php?id_restoran=${idRestoran}`;
+      } else {
+        window.location.href = "my_review.html";
+      }
+    }
+  </script>
 </body>
 </html>

@@ -29,7 +29,8 @@ if ($result->num_rows === 1) {
 
     // Verifikasi password
     if (password_verify($password, $password_hash)) {
-        // ✅ Set session untuk nama dan email
+        // ✅ Simpan data ke session
+        $_SESSION['id_customer'] = $user['id_customer']; // INI YANG KURANG
         $_SESSION['email'] = $user['email'];
         $_SESSION['nama'] = $user['nama_customer'];
 

@@ -14,85 +14,20 @@
   <div class="left-bar">
     <div class="left-header">
       <div class="logo">BookEat.com</div>
-      <div class="back-btn">&#8592;</div>
+      <div class="back-btn" onclick="history.back()">&#8592;</div>
     </div>
-    <div class="vertical-right">
-      <span>M</span>
-      <span>Y</span>
-    </div>
-    <div class="vertical-title">
-      <span>R</span>
-      <span>E</span>
-      <span>V</span>
-      <span>I</span>
-      <span>E</span>
-      <span>W</span>
-    </div>
+    <div class="vertical-right"><span>M</span><span>Y</span></div>
+    <div class="vertical-title"><span>R</span><span>E</span><span>V</span><span>I</span><span>E</span><span>W</span></div>
   </div>
 
   <!-- Content utama -->
   <div class="content-box">
-    <div class="filter-bar">
-      <select>
-        <option>Pilih Restoran</option>
-        <option>resto_1</option>
-        <option>resto_2</option>
-        <option>resto_3</option>
-        <option>resto_4</option>
-        <option>resto_5</option>
-      </select>
-    </div>
-    <div class="review-list">
-      <!-- Satu baris list -->
-      <div class="review-row">
-        <div class="num">1</div>
-        <div class="resto">resto_1</div>
-        <div class="rating">rating</div>
-        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
-        <div class="tanggal">YYYY-MM-DD</div>
-        <a href="#" class="edit-btn">edit</a>
-        <a href="#" class="hapus-btn">hapus</a>
-      </div>
-      <div class="review-row">
-        <div class="num">2</div>
-        <div class="resto">resto_2</div>
-        <div class="rating">rating</div>
-        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
-        <div class="tanggal">YYYY-MM-DD</div>
-        <a href="#" class="edit-btn">edit</a>
-        <a href="#" class="hapus-btn">hapus</a>
-      </div>
-      <div class="review-row">
-        <div class="num">3</div>
-        <div class="resto">resto_3</div>
-        <div class="rating">rating</div>
-        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
-        <div class="tanggal">YYYY-MM-DD</div>
-        <a href="#" class="edit-btn">edit</a>
-        <a href="#" class="hapus-btn">hapus</a>
-      </div>
-      <div class="review-row">
-        <div class="num">4</div>
-        <div class="resto">resto_4</div>
-        <div class="rating">rating</div>
-        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
-        <div class="tanggal">YYYY-MM-DD</div>
-        <a href="#" class="edit-btn">edit</a>
-        <a href="#" class="hapus-btn">hapus</a>
-      </div>
-      <div class="review-row">
-        <div class="num">5</div>
-        <div class="resto">resto_5</div>
-        <div class="rating">rating</div>
-        <div class="review-text">lorem ipsum lorem............. <span class="expand">expand</span></div>
-        <div class="tanggal">YYYY-MM-DD</div>
-        <a href="#" class="edit-btn">edit</a>
-        <a href="#" class="hapus-btn">hapus</a>
-      </div>
+    <div class="review-list" id="review-list">
+      <!-- Review akan dimuat secara dinamis -->
     </div>
   </div>
 
-    <!-- Hamburger/Menu Icon -->
+  <!-- Hamburger/Menu Icon -->
   <div class="hamburger-container">
     <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
   </div>
@@ -101,8 +36,8 @@
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <div>
-        <p class="sidebar-name">Name</p>
-        <p class="sidebar-email">username@email.com</p>
+        <p class="sidebar-name" id="sidebar-name">Name</p>
+        <p class="sidebar-email" id="sidebar-email">username@email.com</p>
       </div>
     </div>
     <div class="sidebar-links">
@@ -116,18 +51,97 @@
   <!-- Overlay -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-
   <!-- JavaScript -->
   <script>
+    function loadReviews() {
+      fetch("my_review.php", {
+        credentials: "include"
+      })
+      .then(res => res.json())
+      .then(data => {
+        const container = document.getElementById("review-list");
+        container.innerHTML = "";
+
+        if (!Array.isArray(data) || data.length === 0) {
+          container.innerHTML = "<p>Tidak ada review yang ditemukan.</p>";
+          return;
+        }
+
+        data.forEach((review, index) => {
+          const truncated = review.komentar.length > 50;
+          const displayText = truncated ? review.komentar.substring(0, 50) + "..." : review.komentar;
+
+          const row = document.createElement("div");
+          row.className = "review-row";
+          row.setAttribute("data-id-review", review.id_review);
+          row.innerHTML = `
+            <div class="num">${index + 1}</div>
+            <div class="resto">${review.nama_restoran}</div>
+            <div class="rating">${"★".repeat(review.rating)}${"☆".repeat(5 - review.rating)}</div>
+            <div class="review-text">
+              <span class="text">${displayText}</span>
+              ${truncated ? '<span class="expand" style="color: blue; cursor: pointer;">expand</span>' : ""}
+            </div>
+            <div class="tanggal">${review.tanggal_review}</div>
+            <a href="review3.html?id_review=${review.id_review}" class="edit-btn">edit</a>
+            <button class="hapus-btn">hapus</button>
+          `;
+
+          container.appendChild(row);
+
+          // Expand/collapse
+          const expand = row.querySelector(".expand");
+          if (expand) {
+            expand.addEventListener("click", () => {
+              const textEl = row.querySelector(".text");
+              const isExpanded = expand.textContent === "collapse";
+              textEl.textContent = isExpanded
+                ? review.komentar.substring(0, 50) + "..."
+                : review.komentar;
+              expand.textContent = isExpanded ? "expand" : "collapse";
+            });
+          }
+
+          // Hapus langsung tanpa konfirmasi
+          const deleteBtn = row.querySelector(".hapus-btn");
+          deleteBtn.addEventListener("click", () => {
+            const id = review.id_review;
+            fetch(`my_review.php?id=${id}`, {
+              method: "DELETE"
+            })
+            .then(res => res.json())
+            .then(response => {
+              if (response.success) {
+                row.remove(); // Hapus dari tampilan
+              } else {
+                alert("Gagal menghapus review: " + response.error);
+              }
+            });
+          });
+        });
+      });
+    }
+
+    loadReviews();
+
+    // Sidebar toggle
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
       document.getElementById("overlay").classList.toggle("active");
     }
 
+    // Logout handler
     function logout() {
-      alert("You have been logged out.");
-      window.location.href = "signIn.html"; // Ganti sesuai nama file login kamu
+      window.location.href = "logout.php";
     }
+
+    // Tampilkan nama & email user
+    fetch("sidebar.php")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("sidebar-name").textContent = data.nama;
+        document.getElementById("sidebar-email").textContent = data.email;
+      });
   </script>
 </body>
 </html>

@@ -10,14 +10,11 @@ if ($conn->connect_error) {
     die("Koneksi gagal: " . $conn->connect_error);
 }
 
-// Query gabungkan restoran dan review
-$sql = "SELECT r.id_restoran, r.tanggal_review, r.rating, r.komentar, c.nama_customer, rest.nama_restoran
-        FROM review r
-        JOIN customer c ON r.id_customer = c.id_customer
-        JOIN restoran rest ON r.id_restoran = rest.id_restoran
-        ORDER BY r.tanggal_review DESC";
-
-
+// Query gabungkan restoran dan review, tapi 1 baris per restoran
+$sql = "SELECT restoran.id_restoran, restoran.nama_restoran, ROUND(AVG(review.rating)) AS rating 
+        FROM review 
+        JOIN restoran ON review.id_restoran = restoran.id_restoran
+        GROUP BY restoran.id_restoran, restoran.nama_restoran";
 
 $result = $conn->query($sql);
 
