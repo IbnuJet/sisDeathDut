@@ -29,14 +29,14 @@ if ($result->num_rows === 1) {
         $_SESSION['email'] = $user['email'];
         $_SESSION['nama'] = $user['nama_customer'];
 
-        header("Location: dashboard.html");
+        header("Location: ../html/dashboard.html");
         exit();
     } else {
-        header("Location: signin.html?error=password");
+        header("Location: ../html/signin.html?error=password");
         exit();
     }
 } else {
-    header("Location: signin.html?error=email");
+    header("Location: ../html/signin.html?error=email");
     exit();
 }
 
