@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>BookEat - Add Review</title>
-  <link rel="stylesheet" href="review3.css" />
+  <link rel="stylesheet" href="../css/review3.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -59,7 +59,7 @@
     const stars = document.querySelectorAll('.star');
     const starsSelected = document.querySelector('.stars-selected');
 
-    fetch('get_session.php')
+    fetch('../php/get_session.php')
       .then(res => res.json())
       .then(data => {
         if (data.id_customer) {
@@ -103,7 +103,7 @@
         payload.id_customer = id_customer;
       }
 
-      fetch('review3.php', {
+      fetch('../php/review3.php', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(payload)
@@ -114,7 +114,7 @@
           if (isEdit) {
             window.location.href = "my_review.html";
           } else {
-            window.location.href = `review2.php?id_restoran=${idRestoran}`;
+            window.location.href = `../php/review2.php?id_restoran=${idRestoran}`;
           }
         } else {
           alert("Error: " + res.error);
@@ -123,25 +123,26 @@
     }
 
     if (idReview) {
-      fetch('review3.php', {
-  method: 'POST',
-  headers: {
-    'Content-Type': 'application/json'
-  },
-  body: JSON.stringify(data)
-})
-.then(response => response.json())
-.then(result => {
-  if (result.success) {
-    // Redirect ke halaman review2 jika sukses
-    window.location.href = 'review2.php?id_restoran=' + id_restoran;
-  } else {
-    alert(result.error || "Gagal menyimpan review.");
-  }
-});
+  fetch(`../php/review3.php?id_review=${idReview}`)
+  .then(res => res.json())
+  .then(data => {
+    if (!data.success || !data.review) {
+      alert("Review tidak ditemukan.");
+      return;
+    }
+
+    const review = data.review;
+
+    document.querySelector('.name').textContent = review.nama_restoran || "Restoran Tidak Ditemukan";
+    document.getElementById("review-text").value = review.komentar || "";
+    selectedRating = review.rating || 0;
+    updateStars(selectedRating);
+
+    idRestoran = review.id_restoran; // untuk redirect saat update
+  });
 
     } else if (idRestoran) {
-      fetch(`review3.php?id_restoran=${idRestoran}`)
+      fetch(`../php/review3.php?id_restoran=${idRestoran}`)
         .then(res => res.json())
         .then(data => {
           document.querySelector('.name').textContent = data.nama_restoran || "Restoran Tidak Ditemukan";
@@ -152,11 +153,12 @@
 
     function goBack() {
       if (idRestoran) {
-        window.location.href = `review2.php?id_restoran=${idRestoran}`;
+        window.location.href = `../php/review2.php?id_restoran=${idRestoran}`;
       } else {
         window.location.href = "my_review.html";
       }
     }
+    document.getElementById("submit-review").onclick = () => handleSubmit(!!idReview);
   </script>
 </body>
 </html>

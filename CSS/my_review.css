@@ -4,10 +4,11 @@ body {
   font-family: 'Poppins', sans-serif;
   box-sizing: border-box;
   overflow-x: hidden;
+  background-color: #2d3244;
 }
 
 /* Background */
-.bg {
+/* .bg {
   position: fixed;
   top: 0;
   left: 0;
@@ -15,7 +16,7 @@ body {
   height: 100vh;
   background: url('assets/my_review_bg.png') center center/cover no-repeat;
   z-index: -1;
-}
+} */
 
 .left-bar {
   position: fixed;
@@ -222,7 +223,7 @@ body {
 .sidebar {
   position: fixed;
   top: 0;
-  right: -290px;      /* Sidebar di luar layar kanan (hidden) */
+  right: -290px;      
   height: 40%;
   width: 250px;
   background: #f1f1f1;

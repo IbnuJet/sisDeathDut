@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <title>BookEat - Review</title>
-  <link rel="stylesheet" href="review2.css" />
+  <link rel="stylesheet" href="../css/review2.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet" />
 </head>
 <body>
@@ -43,7 +43,7 @@
     const idRestoran = params.get('id_restoran');
 
     if (idRestoran) {
-  fetch(`review2.php?id_restoran=${idRestoran}`)
+  fetch(`../php/review2.php?id_restoran=${idRestoran}`)
     .then(response => response.json())
     .then(data => {
       const container = document.querySelector('.review-container');

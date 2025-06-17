@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
 $dbname = 'reserv_view_resto';
-$username = 'root'; // ganti jika beda
-$password = '';     // ganti jika ada password
+$username = 'root';
+$password = '';    
 
 $conn = new mysqli($host, $username, $password, $dbname);
 

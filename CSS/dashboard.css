@@ -1,4 +1,3 @@
-/* ───────── Reset dasar ───────── */
 * {
   margin: 0;
   padding: 0;
@@ -7,18 +6,17 @@
 
 html, body {
   height: 100%;
-  overflow-x: hidden;   /* matikan scroll horizontal */
-  overflow-y: hidden;   /* matikan scroll vertikal */
+  overflow-x: hidden;   
+  overflow-y: hidden;   
   font-family: 'Poppins', sans-serif;
   background-color: #2d3244;
   color: white;
 }
 
-/* ───────── Navbar Teal Penuh ───────── */
 .navbar {
   background-color: #63a59c;
   width: 100%;
-  height: 80px;         /* tinggi navbar */
+  height: 80px;        
   position: fixed;
   top: 0;
   left: 0;
@@ -30,7 +28,7 @@ html, body {
 }
 
 .brand {
-  margin-left: 16px;    /* sedikit jarak dari ujung kiri */
+  margin-left: 16px;    
   font-size: 1.25rem;
   font-weight: 700;
   color: white;
@@ -59,11 +57,10 @@ html, body {
 }
 
 .nav-center ul li a.active {
-  background-color: rgba(255, 255, 255, 0.5);  /* warna saat aktif */
-  color: white; /* warna teks saat aktif */
+  background-color: rgba(255, 255, 255, 0.5);
+  color: white; 
   font-weight: 700;
 }
-
 
 .nav-center ul li a:hover {
   background-color: rgba(255,255,255,0.5);
@@ -86,73 +83,52 @@ html, body {
   border-radius: 2px;
 }
 
-/* ───────── Bagian yang Diubah ───────── */
-
-/* Hero Section: kita akan dorong konten ke bawah */
-/* Ubah display dan alignment hero menjadi flex agar lebih mudah mengatur posisi */
 .hero {
-  background: url('assets/dashboard_background.png') no-repeat center center;
+  background: url('.../assets/dashboard_background.png') no-repeat center center;
   background-size: cover;
-  height: calc(100vh - 80px);  /* tinggi hero sama seperti sebelumnya */
-  margin-top: 8px;            /* tetap di bawah navbar */
-  
-  /* Ganti dari grid menjadi flex kolom */
+  height: calc(100vh - 80px); 
+  margin-top: 8px;           
   display: flex;
   flex-direction: column;
-  justify-content: flex-start; /* konten mulai dari atas */
-  align-items: center;         /* rata tengah secara horizontal */
+  justify-content: flex-start;
+  align-items: center;        
   position: relative;
   text-align: center;
-  padding-top: 290px;          /* dorong konten (BookEat + fitur) ke bawah sejauh 100px */
+  padding-top: 290px;
 }
 
-/* Hapus grid-template-columns dan semua properti grid */
-/* Jadi .hero sekarang diatur oleh flex dan padding-top */
-
-/* Hero-content: struktur sama, tapi kita tidak perlu mengubahnya. */
-/* Namun, jika ada margin/padding yang memberatkan, bisa direset */
-/* ───────── Hero-content: Kecilkan jarak antar judul dan subtitle ───────── */
-/* Hero-content: hapus gap sepenuhnya */
 .hero-content {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0;          /* sebelumnya gap: 8px, sekarang 0 agar tidak ada jarak */
+  gap: 0;
   width: 100%;
   max-width: 1000px;
 }
 
-/* Judul tanpa margin-bottom */
 .hero-content h1 {
   font-size: 6rem;
   font-weight: 700;
   color: white;
-  margin: 0;       /* sebelumnya 0 atau 4px, sekarang benar-benar 0 */
+  margin: 0;
 }
 
-/* Paragraf dinaikkan dengan margin-top negatif */
 .hero-content p {
   font-size: 1.8rem;
   color: white;
-  margin-top: -29px;  /* naikkan 8px ke atas supaya “menempel” ke h1 */
+  margin-top: -29px;
 }
 
-/* Subtitle <p> tetap mengikuti gap 8px di .hero-content */
-
-/* ───────── Jaga jarak antara subtitle dan fitur tetap jauh ───────── */
 .feature-container {
   display: flex;
   justify-content: center;
-  gap: 40px;     /* jarak antar kotak fitur tetap lebar */
+  gap: 40px;
   flex-wrap: wrap;
   width: 100%;
-  /* Tambahkan margin-top besar untuk membuat jarak menonjol */
-  margin-top: 150px; /* sesuaikan nilai agar terasa “jauh” */
+  margin-top: 150px;
 }
 
-
 .feature {
-  /* Hilangkan background-color, padding, border-radius */
   background: none;
   padding: 0;
   border-radius: 0;
@@ -172,16 +148,12 @@ html, body {
   font-weight: 400;
   color: #e0e0e0;
   line-height: 1.4;
-  margin: 0; /* hilangkan margin default jika ada */
+  margin: 0;
 }
 
-/* Jika sebelumnya ada aturan .feature { background-color: rgba(0,0,0,0.3); ... },
-   sekarang sudah dihapus sehingga hanya teks yang tampil. */
-
-/* ───────── Responsif (jika diperlukan) ───────── */
 @media (max-width: 992px) {
   .hero {
-    padding-top: 250px; /* sedikit mengurangi dorongan atas di layar menengah */
+    padding-top: 250px;
   }
   .hero-content h1 {
     font-size: 3rem;
@@ -197,7 +169,7 @@ html, body {
 
 @media (max-width: 576px) {
   .hero {
-    padding-top: 60px; /* sesuaikan agar judul tetap terlihat */
+    padding-top: 60px;
   }
   .hero-content h1 {
     font-size: 2.4rem;
@@ -212,7 +184,6 @@ html, body {
   }
 }
 
-/* Sidebar */
 .sidebar {
   position: fixed;
   top: 0;
@@ -240,19 +211,6 @@ html, body {
   align-items: center;
   gap: 15px;
   margin-bottom: 30px;
-}
-
-.profile-icon {
-  width: 60px;
-  height: 60px;
-  background: #2d3345;
-  border-radius: 50%;
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .sidebar-name {
@@ -296,7 +254,6 @@ html, body {
   margin-right: auto;
 }
 
-/* Overlay to dim background */
 .overlay {
   position: fixed;
   top: 0;

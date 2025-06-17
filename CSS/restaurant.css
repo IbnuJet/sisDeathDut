@@ -10,12 +10,7 @@ html, body {
   font-family: 'Poppins', sans-serif;
   color: white;
   overflow-x: hidden;
-
-  background-image: url('assets/restaurant_bg.png'); /* sesuaikan path */
-  background-repeat: no-repeat;
-  background-position: center top;
-  background-size: cover;
-  background-attachment: fixed;
+  background-color: #2d3244;
 }
 
 /* Navbar */
@@ -165,19 +160,6 @@ tbody tr:last-child td {
   align-items: center;
   gap: 15px;
   margin-bottom: 30px;
-}
-
-.profile-icon {
-  width: 60px;
-  height: 60px;
-  background: #2d3345;
-  border-radius: 50%;
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
 }
 
 .sidebar-name {

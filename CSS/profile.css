@@ -170,19 +170,6 @@ label {
   margin-bottom: 30px;
 }
 
-.profile-icon {
-  width: 60px;
-  height: 60px;
-  background: #2d3345;
-  border-radius: 50%;
-  color: white;
-  font-weight: bold;
-  font-size: 1.2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
 .sidebar-name {
   font-weight: bold;
   font-size: 1.2rem;

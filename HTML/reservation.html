@@ -3,80 +3,169 @@
 <head>
   <meta charset="UTF-8" />
   <title>Reservation Page</title>
-  <link rel="stylesheet" href="reservation.css"/>
+  <link rel="stylesheet" href="../css/reservation.css"/>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet"/>
 </head>
 <body>
   <div class="background-overlay">
-    <!-- Navbar Teal Penuh -->
-<header class="navbar">
-    <div class="brand">BookEat.com</div>
-    <nav class="nav-center">
-      <ul>
-        <li><a href="dashboard.html">Dashboard</a></li>
-        <li><a href="restaurant.html">Restaurant</a></li>
-        <li><a href="review.html">Review</a></li>
-        <li><a href="reservation.html" class="active">Reservation</a></li>
-      </ul>
-    </nav>
-    <div class="hamburger">
-      <span class="bar"></span>
-      <span class="bar"></span>
-      <span class="bar"></span>
-    </div>
-  </header>
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="brand">BookEat.com</div>
+      <nav class="nav-center">
+        <ul>
+          <li><a href="dashboard.html">Dashboard</a></li>
+          <li><a href="restaurant.html">Restaurant</a></li>
+          <li><a href="review.html">Review</a></li>
+          <li><a href="reservation.html" class="active">Reservation</a></li>
+        </ul>
+      </nav>
+      <div class="hamburger" id="hamburger">
+        <span class="bar"></span>
+        <span class="bar"></span>
+        <span class="bar"></span>
+      </div>
+    </header>
 
-
+    <!-- Filter Bar -->
     <section class="filter-bar">
       <div class="filter-group">
         <div class="filter">
           <span class="icon">📅</span>
-          <input type="date" value="2025-05-20">
+          <input type="date" id="filter-date">
         </div>
         <div class="filter">
           <span class="icon">🕒</span>
-          <input type="time" value="18:30">
+          <input type="time" id="filter-time">
         </div>
         <div class="filter">
           <span class="icon">👤</span>
-          <select>
-            <option>1 Person</option>
-            <option selected>2 People</option>
-            <option>3 People</option>
-            <option>4 People</option>
+          <select id="filter-person">
+            <option value="1">1 Person</option>
+            <option value="2" selected>2 People</option>
+            <option value="3">3 People</option>
+            <option value="4">4 People</option>
           </select>
         </div>
       </div>
 
       <div class="search-group">
-        <input type="text" placeholder="Search Restaurant, Location, or Cuisine">
-        <button>Find</button>
+        <input type="text" id="search-keyword" placeholder="Search Restaurant, Location, or Cuisine">
+        <button onclick="loadRestaurants()">Find</button>
       </div>
     </section>
 
-    <section class="restaurant-list">
-      <div class="restaurant-card">
-        <div class="pic">PIC</div>
-        <div class="details">
-          <h3>Restaurant’s Name</h3>
-          <p>⭐⭐⭐⭐★ <span>Restaurant’s Category</span></p>
-          <p class="price">💵💵💵💵 Restaurant’s Price Category</p>
-          <p class="hour">🕒 Restaurant’s Operational Hour</p>
-        </div>
-        <button class="add-btn">+</button>
-      </div>
-
-      <div class="restaurant-card">
-        <div class="pic">PIC</div>
-        <div class="details">
-          <h3>Restaurant’s Name</h3>
-          <p>⭐⭐⭐⭐★ <span>Restaurant’s Category</span></p>
-          <p class="price">💵💵💵💵 Restaurant’s Price Category</p>
-          <p class="hour">🕒 Restaurant’s Operational Hour</p>
-        </div>
-        <button class="add-btn">+</button>
-      </div>
+    <!-- Restaurant List -->
+    <section class="restaurant-list" id="restaurant-list">
+      <!-- Data will be inserted here -->
     </section>
   </div>
+
+  <!-- Sidebar -->
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <div>
+        <p class="sidebar-name" id="sidebar-name">Name</p>
+        <p class="sidebar-email" id="sidebar-email">username@email.com</p>
+      </div>
+    </div>
+    <div class="sidebar-links">
+      <a href="profile.html">Profile</a>
+      <a href="my_reserv.html">My Reservation</a>
+      <a href="my_review.html">My Review</a>
+    </div>
+    <button class="logout-btn" onclick="logout()">LOG OUT</button>
+  </div>
+
+  <!-- Overlay -->
+  <div id="overlay" class="overlay"></div>
+
+  <script>
+    const hamburger = document.getElementById('hamburger');
+    const sidebar = document.getElementById('sidebar');
+    const overlay = document.getElementById('overlay');
+
+    hamburger.addEventListener('click', () => {
+      sidebar.classList.add('active');
+      overlay.classList.add('active');
+    });
+
+    overlay.addEventListener('click', () => {
+      sidebar.classList.remove('active');
+      overlay.classList.remove('active');
+    });
+
+    function logout() {
+      window.location.href = "../php/logout.php";
+    }
+
+    fetch("../php/sidebar.php")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("sidebar-name").textContent = data.nama;
+        document.getElementById("sidebar-email").textContent = data.email;
+      })
+      .catch(error => console.error("Gagal mengambil data user:", error));
+
+    function loadRestaurants() {
+      const tanggal = document.getElementById('filter-date').value;
+      const waktu = document.getElementById('filter-time').value;
+      const jumlah = document.getElementById('filter-person').value;
+      const keyword = document.getElementById('search-keyword').value.toLowerCase();
+
+      let url = `../php/reservation.php?search=${encodeURIComponent(keyword)}`;
+      if (tanggal) url += `&tanggal=${tanggal}`;
+      if (waktu) url += `&waktu=${waktu}`;
+      if (jumlah) url += `&jumlah=${jumlah}`;
+
+      fetch(url)
+        .then(res => res.json())
+        .then(data => {
+          const list = document.getElementById('restaurant-list');
+          list.innerHTML = '';
+          if (data.length === 0) {
+            list.innerHTML = '<p class="no-result">No restaurants found.</p>';
+            return;
+          }
+
+          data.forEach(resto => {
+            const card = document.createElement('div');
+            card.className = 'restaurant-card';
+            card.innerHTML = `
+              <div class="pic">${resto.nama_restoran[0]}</div>
+              <div class="details">
+                <h3>${resto.nama_restoran}</h3>
+                <p>${'★'.repeat(Math.round(resto.avg_rating))}${'☆'.repeat(5 - Math.round(resto.avg_rating))} <span>${resto.kategori}</span></p>
+                <p class="price">💵💵 Estimated</p>
+                <p class="hour">🕒 ${resto.jam_operasional}</p>
+              </div>
+              <button class="add-btn" onclick="makeReservation(${resto.id_restoran})">+</button>
+            `;
+            list.appendChild(card);
+          });
+        })
+        .catch(err => console.error("Gagal ambil data:", err));
+    }
+
+    function makeReservation(id_restoran) {
+      const tanggal = document.getElementById('filter-date').value;
+      const waktu = document.getElementById('filter-time').value;
+      const jumlah = document.getElementById('filter-person').value;
+
+      if (!tanggal || !waktu) {
+        alert("Please fill date and time.");
+        return;
+      }
+
+      const params = new URLSearchParams({
+        id_restoran,
+        tanggal,
+        waktu,
+        jumlah
+      });
+      window.location.href = `reservation2.html?${params.toString()}`;
+    }
+
+    loadRestaurants();
+  </script>
 </body>
 </html>

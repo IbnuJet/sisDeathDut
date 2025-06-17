@@ -4,13 +4,10 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Review</title>
-  <link rel="stylesheet" href="my_review.css" />
+  <link rel="stylesheet" href="../css/my_review.css" />
 </head>
 <body>
-  <!-- Background -->
   <div class="bg"></div>
-
-  <!-- Sidebar kiri -->
   <div class="left-bar">
     <div class="left-header">
       <div class="logo">BookEat.com</div>
@@ -20,19 +17,15 @@
     <div class="vertical-title"><span>R</span><span>E</span><span>V</span><span>I</span><span>E</span><span>W</span></div>
   </div>
 
-  <!-- Content utama -->
   <div class="content-box">
     <div class="review-list" id="review-list">
-      <!-- Review akan dimuat secara dinamis -->
     </div>
   </div>
 
-  <!-- Hamburger/Menu Icon -->
   <div class="hamburger-container">
     <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
   </div>
 
-  <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
       <div>
@@ -48,13 +41,11 @@
     <button class="logout-btn" onclick="logout()">LOG OUT</button>
   </div>
 
-  <!-- Overlay -->
   <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
 
-  <!-- JavaScript -->
   <script>
     function loadReviews() {
-      fetch("my_review.php", {
+      fetch("../php/my_review.php", {
         credentials: "include"
       })
       .then(res => res.json())
@@ -89,7 +80,6 @@
 
           container.appendChild(row);
 
-          // Expand/collapse
           const expand = row.querySelector(".expand");
           if (expand) {
             expand.addEventListener("click", () => {
@@ -102,11 +92,10 @@
             });
           }
 
-          // Hapus langsung tanpa konfirmasi
           const deleteBtn = row.querySelector(".hapus-btn");
           deleteBtn.addEventListener("click", () => {
             const id = review.id_review;
-            fetch(`my_review.php?id=${id}`, {
+            fetch(`../php/my_review.php?id=${id}`, {
               method: "DELETE"
             })
             .then(res => res.json())
@@ -124,19 +113,16 @@
 
     loadReviews();
 
-    // Sidebar toggle
     function toggleSidebar() {
       document.getElementById("sidebar").classList.toggle("active");
       document.getElementById("overlay").classList.toggle("active");
     }
 
-    // Logout handler
     function logout() {
-      window.location.href = "logout.php";
+      window.location.href = "../php/logout.php";
     }
 
-    // Tampilkan nama & email user
-    fetch("sidebar.php")
+    fetch("../php/sidebar.php")
       .then(res => res.json())
       .then(data => {
         document.getElementById("sidebar-name").textContent = data.nama;

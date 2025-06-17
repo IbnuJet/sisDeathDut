@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>BookEat - Daftar Restoran</title>
-  <link rel="stylesheet" href="restaurant.css" />
+  <link rel="stylesheet" href="../css/restaurant.css" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet" />
 <style>
     .sidebar {
@@ -36,17 +36,8 @@
       }
 
       .profile-icon {
-        width: 60px;
-        height: 60px;
-        background: #2d3345;
-        border-radius: 50%;
-        color: white;
-        font-weight: bold;
-        font-size: 1.2rem;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-      }
+  display: none;
+}
 
       .sidebar-name {
         font-weight: bold;
@@ -59,7 +50,7 @@
         font-size: 0.9rem;
       }
 
-      .sidebar-links {
+      .sidebar-links {  
         flex-grow: 1;
         display: flex;
         flex-direction: column;
@@ -139,39 +130,25 @@
             <th>Jam Oper.</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>1</td>
-            <td>Rumah Makan Padang Raya</td>
-            <td>Jl. Sumagung 3, RT.15/RW.2, Klp. Gading Tim., Kec. Klp. Gading, Jkt Utara</td>
-            <td>Asian Food</td>
-            <td>09.00 - 20.00 W</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Dimsum Sembilan Naga</td>
-            <td>Ruko Paskal Hypersquare Blok G. 2, Jl. Pasir Kaliki No.25 - 27, Ciroyom, Kec. Andir, Kota Bandung, Jawa Barat</td>
-            <td>Asian Food</td>
-            <td>06.00 - 21.30 W</td>
-          </tr>
-          <!-- Tambahkan data lainnya sesuai kebutuhan -->
+        <tbody id="resto-body">
+  <!-- Data akan diisi otomatis dari JS -->
         </tbody>
+
       </table>
     </div>
   </main>
   <!-- Sidebar -->
   <div id="sidebar" class="sidebar">
     <div class="sidebar-header">
-      <div class="profile-icon">PIC</div>
       <div>
-        <p class="sidebar-name">Name</p>
-        <p class="sidebar-email">username@email.com</p>
+        <p class="sidebar-name" id="sidebar-name">Name</p>
+        <p class="sidebar-email" id="sidebar-email">username@email.com</p>
       </div>
     </div>
     <div class="sidebar-links">
       <a href="profile.html">Profile</a>
-      <a href="#">My Reservation</a>
-      <a href="#">My Review</a>
+      <a href="my_reserv.html">My Reservation</a>
+      <a href="my_review.html">My Review</a>
     </div>
     <button class="logout-btn" onclick="logout()">LOG OUT</button>
   </div>
@@ -198,6 +175,37 @@
     function logout() {
       alert("Logged out!");
     }
+    fetch("../php/sidebar.php")
+    .then(res => res.json())
+    .then(data => {
+      document.getElementById("sidebar-name").textContent = data.nama;
+      document.getElementById("sidebar-email").textContent = data.email;
+    })
+    .catch(error => console.error("Gagal mengambil data user:", error));
+
+    function logout() {
+  window.location.href = "../php/logout.php";
+}
+
+  fetch("../php/restaurant.php")
+  .then(res => res.json())
+  .then(data => {
+    const tbody = document.getElementById("resto-body");
+    tbody.innerHTML = "";
+    data.forEach(row => {
+      tbody.innerHTML += `
+        <tr>
+          <td>${row.no}</td>
+          <td>${row.nama_restoran}</td>
+          <td>${row.lokasi}</td>
+          <td>${row.kategori}</td>
+          <td>${row.jam_operasional}</td>
+        </tr>`;
+    });
+  })
+  .catch(err => {
+    console.error("Gagal ambil data restoran:", err);
+  });
   </script>
 </body>
 </html>

@@ -4,12 +4,11 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>My Reservation</title>
-  <link rel="stylesheet" href="my_reserv.css" />
+  <link rel="stylesheet" href="../css/my_reserv.css" />
 </head>
 <body>
   <div class="background"></div>
 
-  <!-- Tulisan RESERVATION dan Header kanan -->
   <div class="right-title-bar">
     <div class="right-title-header">
       <div class="logo">BookEat.com</div>
@@ -36,23 +35,134 @@
 
   <div class="content-box">
     <div class="filters">
-      <select>
+      <select id="filter-resto">
         <option>Pilih Restoran</option>
       </select>
-      <input type="date" />
+      <input id="filter-date" type="date" />
+      <button id="filter-btn">Filter</button>
     </div>
-    <table class="reservation-table">
-      <tr>
-        <td>1</td>
-        <td>resto_1</td>
-        <td>YYYY-MM-DD</td>
-        <td>xx:yy - xx:yy zzz</td>
-        <td>org</td>
-        <td>status</td>
-        <td><a href="#">edit</a></td>
-        <td><a href="#" class="hapus">hapus</a></td>
-      </tr>
-    </table>
+    <div class="reservation-list">
+    </div>
   </div>
+
+  <div class="hamburger-container">
+    <div class="menu-icon" onclick="toggleSidebar()">&#9776;</div>
+  </div>
+
+  <div id="sidebar" class="sidebar">
+    <div class="sidebar-header">
+      <p class="sidebar-name" id="sidebar-name">Name</p>
+      <p class="sidebar-email" id="sidebar-email">username@email.com</p>
+    </div>
+    <div class="sidebar-links">
+      <a href="dashboard.html">Dashboard</a>
+      <a href="my_reserv.html">My Reservation</a>
+      <a href="my_review.html">My Review</a>
+    </div>
+    <button class="logout-btn" onclick="logout()">LOG OUT</button>
+  </div>
+
+  <div id="overlay" class="overlay" onclick="toggleSidebar()"></div>
+
+  <script>
+    const reservationList = document.querySelector('.reservation-list');
+    const filterResto = document.getElementById('filter-resto');
+    const filterDate = document.getElementById('filter-date');
+    const filterBtn = document.getElementById('filter-btn');
+
+    function renderReservations(data) {
+      if (!Array.isArray(data) || data.length === 0) {
+        reservationList.innerHTML = '<div style="padding: 20px;">No reservations found.</div>';
+        return;
+      }
+
+      reservationList.innerHTML = data.map((item, idx) => `
+        <div class="reservation-row">
+          <div class="number">${idx + 1}</div>
+          <div class="resto">${item.nama_restoran}</div>
+          <div class="date">${item.tanggal}</div>
+          <div class="time">${item.jam_mulai} - ${item.jam_selesai}</div>
+          <div class="chip org">${item.jumlah_orang} org</div>
+          <div class="chip status">${item.status}</div>
+          <a href="#" class="edit-btn">edit</a>
+          <a href="#" class="hapus-btn">hapus</a>
+        </div>
+      `).join('');
+    }
+
+    async function loadReservations() {
+      const resto = filterResto.value;
+      const tanggal = filterDate.value;
+
+      const params = new URLSearchParams();
+      if (resto && resto !== "Pilih Restoran") params.append('resto', resto);
+      if (tanggal) params.append('tanggal', tanggal);
+
+      try {
+        const response = await fetch('../php/my_reserv.php?' + params.toString(), {
+          credentials: 'include'
+        });
+        if (!response.ok) throw new Error('HTTP error ' + response.status);
+
+        const data = await response.json();
+
+        if (data.error) {
+          alert(data.error);
+          reservationList.innerHTML = '';
+          return;
+        }
+
+        renderReservations(data);
+      } catch (error) {
+        console.error('Fetch error:', error);
+        reservationList.innerHTML = '<div style="padding: 20px; color: red;">Failed to load reservations.</div>';
+      }
+    }
+
+    async function loadRestaurants() {
+      try {
+        const response = await fetch('../php/my_reserv.php?action=get_restaurants', {
+          credentials: 'include'
+        });
+        if (!response.ok) throw new Error('HTTP error ' + response.status);
+
+        const restos = await response.json();
+        if (Array.isArray(restos)) {
+          filterResto.innerHTML = '<option>Pilih Restoran</option>';
+          restos.forEach(r => {
+            const option = document.createElement('option');
+            option.textContent = r;
+            option.value = r;
+            filterResto.appendChild(option);
+          });
+        }
+      } catch (error) {
+        console.error('Failed to load restaurants:', error);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      loadRestaurants();
+      loadReservations();
+    });
+    filterBtn.addEventListener('click', loadReservations);
+
+    function toggleSidebar() {
+      document.getElementById("sidebar").classList.toggle("active");
+      document.getElementById("overlay").classList.toggle("active");
+    }
+
+    function logout() {
+      alert("You have been logged out.");
+      window.location.href = "signIn.html";
+    }
+
+    fetch("../php/sidebar.php")
+      .then(res => res.json())
+      .then(data => {
+        document.getElementById("sidebar-name").textContent = data.nama;
+        document.getElementById("sidebar-email").textContent = data.email;
+      });
+  </script>
 </body>
 </html>
